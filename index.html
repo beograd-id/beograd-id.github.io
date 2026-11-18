@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Београд — визуальная идентичность</title>
 <meta name="description" content="Визуальная идентичность десяти городских общин Белграда: знаки, шрифт SRBPRO, цвет.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;1,400&display=swap">
-<link rel="preload" href="fonts/SRBPRO.otf" as="font" type="font/otf" crossorigin>
+<meta name="theme-color" content="#1B1B1B">
+<link rel="preload" href="fonts/SRBPRO.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -44,7 +42,7 @@
   </div>
 </div>
 
-<section id="project" class="slide" data-hash="project" data-theme="light">
+<section id="project" class="slide" data-hash="project" data-theme="dark">
   <svg id="sys" viewBox="0 0 1440 873"></svg>
   <div class="p-text">
     <h2>О проекте </h2>
@@ -62,9 +60,9 @@
   </div>
   <div class="credit">Часть фотографий города прислали читатели Threads — спасибо <a href="https://www.threads.com/@felixcavi" target="_blank" rel="noopener">@felixcavi</a></div>
   <div id="ppeek"></div>
-  <div id="fact"><div class="fnum"><span id="fN">01</span><small id="fOf">/ 08</small></div><h3 id="fT"></h3><p id="fD"></p><div class="fnav"><div id="fPrev">←</div><div id="fNext">→</div></div></div>
+  <div id="fact"><div class="fnum"><span id="fN">01</span><small id="fOf">/ 08</small></div><h3 id="fT"></h3><p id="fD"></p><div class="fnav"><div class="rbtn" id="fPrev" aria-label="назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div><div class="rbtn" id="fNext" aria-label="дальше"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div></div></div>
 </section>
-<section id="districts" class="slide" data-hash="districts" data-theme="light">
+<section id="districts" class="slide" data-hash="districts" data-theme="dark">
   <h2 class="d-title">Общины</h2>
   <p class="d-lead">Десять знаков — десять городских общин. У каждого своя форма и свой цвет.</p>
   <div class="d-info"><div class="d-num"><span id="dN">01</span><small>/ 10</small></div>

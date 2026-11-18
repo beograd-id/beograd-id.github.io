@@ -50,7 +50,7 @@ nodes.forEach(n=>{const k=n.k,e=div('tile card'+(n.spec?' spec':'')+(k.startsWit
 let pa=null,cur=null;
 function openPeek(el){cur=el;const r={x:parseFloat(el.style.left),y:parseFloat(el.style.top),w:parseFloat(el.style.width),h:parseFloat(el.style.height)};
   const k=el._k,im=el.querySelector('img');peek.className=k.endsWith(':gray')?'gray':'';peek.style.backgroundImage=`url(${big(k)})`;
-  peek.style.backgroundSize=k.startsWith('L:')?'60% auto':'cover';peek.style.backgroundColor=k.startsWith('L:')?'#fff':'#eee';
+  peek.style.backgroundSize=k.startsWith('L:')?'60% auto':'cover';peek.style.backgroundColor=k.startsWith('L:')||k.startsWith('g:')?'transparent':'#303030';
   let ar=k.startsWith('g:')||k.startsWith('L:')?1:(im&&im.naturalWidth?im.naturalWidth/im.naturalHeight:1);
   let th=k.startsWith('g:')?360:420,tw=th*ar;if(tw>560){tw=560;th=tw/ar}
   const tx=Math.min(1340-tw,Math.max(748,r.x+r.w/2-tw/2)),ty=Math.min(840-th,Math.max(100,r.y+r.h/2-th/2));
