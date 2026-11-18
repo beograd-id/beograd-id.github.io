@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Београд — визуальная идентичность</title>
+<meta name="description" content="Визуальная идентичность десяти городских общин Белграда: знаки, шрифт SRBPRO, цвет.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;1,400&display=swap">
+<link rel="preload" href="fonts/SRBPRO.otf" as="font" type="font/otf" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="vp"><div id="deck">
+<header id="hdr" data-theme="dark"><div class="logo" data-go="0"><img class="l0" src="hero/logo.png" alt=""><img class="l1" src="hero/logo-w.png" alt=""></div>
+  <nav class="pills"><div class="pill" data-go="2">о проекте</div><div class="pill" data-go="1">о городе</div><div class="pill" data-go="3">общины</div><div class="pill">карта города</div><div class="pill">шрифт</div><div class="pill sm">ru</div></nav></header>
+<div id="edge"></div>
+
+<section class="slide" id="hero" data-hash="home" data-theme="dark">
+  <div class="temp"><b id="wT">16</b><i>°C </i></div>
+  <div class="wx"><p id="wP">вероятность осадков: 98%</p><p id="wH">влажность: 72%</p><p id="wW">ветер: 21 км/ч</p></div>
+  <div class="ttl"><h1>Београд</h1><p>Проект: визуальная идентичность Белграда</p></div>
+  <div class="hint">листайте вниз</div>
+</section>
+<div id="stage" class="slide" data-hash="city" data-theme="red">
+  <p class="abs title">о городе </p>
+  <div class="abs text">
+    <p>Белград — столица Сербии. Он стоит на высоком мысу, где Сава впадает в Дунай: отсюда просматриваются обе реки и равнина за ними. Такое положение определило </p>
+    <p>всю его историю — и как торгового узла на пути между Европой и Балканами, </p>
+    <p>и как крепости, за которую держались все, кто сюда приходил.</p>
+    <p class="gap"></p>
+    <p>Кельты назвали поселение Сингидун, римляне переделали имя в Сингидунум. Славянское название Београд, «белый город», впервые встречается </p>
+    <p>в письме папы Иоанна VIII в 878 году. Позже город входил в состав Византии, Болгарского царства, Венгерского королевства, Османской и Австрийской империй, </p>
+    <p>был столицей Сербии, Югославии и снова Сербии.</p>
+    <p class="gap"></p>
+    <p>Каждая из этих эпох оставила свой слой застройки, и слои не сменяли друг друга, </p>
+    <p>а остались рядом. </p>
+  </div>
+  <div class="abs" id="strip">
+    <div id="num"></div>
+    <div id="line"></div><div id="dot"></div>
+    <div id="cap"><span></span></div>
+  </div>
+</div>
+
+<section id="project" class="slide" data-hash="project" data-theme="light">
+  <svg id="sys" viewBox="0 0 1440 873"></svg>
+  <div class="p-text">
+    <h2>О проекте </h2>
+    <div class="p-body">
+      <p>Белград делится на 17 общин, и каждая — самостоятельная единица </p>
+      <p>со своим собранием и бюджетом. </p>
+      <p class="gap"></p>
+      <p>Десять общин городские, семь — пригородные. Проект посвящён десяти городским.</p>
+      <p class="gap"></p>
+      <p>Задача — собрать для них современный визуальный язык, в котором форма знака следует из истории района, а не из общего стиля. Десять знаков устроены по одним правилам, но каждый опирается на свой материал.</p>
+      <p class="gap"></p>
+      <p>В основе исследования — история города и отдельных общин, старые карты и планы застройки, архитектурные слои районов и пешие обходы </p>
+      <p>с проверкой на местности. </p>
+    </div>
+  </div>
+  <div class="credit">Часть фотографий города прислали читатели Threads — спасибо <a href="https://www.threads.com/@felixcavi" target="_blank" rel="noopener">@felixcavi</a></div>
+  <div id="ppeek"></div>
+  <div id="fact"><div class="fnum"><span id="fN">01</span><small id="fOf">/ 08</small></div><h3 id="fT"></h3><p id="fD"></p><div class="fnav"><div id="fPrev">←</div><div id="fNext">→</div></div></div>
+</section>
+<section id="districts" class="slide" data-hash="districts" data-theme="light">
+  <h2 class="d-title">Общины</h2>
+  <p class="d-lead">Десять знаков — десять городских общин. У каждого своя форма и свой цвет.</p>
+  <div class="d-info"><div class="d-num"><span id="dN">01</span><small>/ 10</small></div>
+    <div class="d-name" id="dName"></div><div class="d-lat" id="dLat"></div>
+    <div class="d-blocks"><div><b id="dB1">ФОРМА</b><p id="dF"></p></div><div><b id="dB2"><span class="d-swatch" id="dSw"></span>ЦВЕТ</b><p id="dC"></p></div><div><b id="dB3">ОБЩИНА</b><p id="dH"></p></div></div></div>
+  <div class="stage"><div class="big" id="dBig"></div></div>
+  <div class="strip" id="dStrip"></div>
+</section>
+
+</div></div>
+<script src="js/deck.js"></script>
+<script src="js/hero.js"></script>
+<script src="js/history.js"></script>
+<script src="js/project.js"></script>
+<script src="js/districts.js"></script>
+<script src="js/reveal.js"></script>
+</body>
+</html>
