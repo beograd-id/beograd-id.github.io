@@ -4,8 +4,6 @@ const D=[["stari-grad", "Стари град", "Stari grad", "#fc3030", "Зуб�
 const R=document.getElementById('districts'),big=document.getElementById('dBig'),strip=document.getElementById('dStrip');
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg',reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const pad=n=>String(n).padStart(2,'0');
-// dark district colours (Čukarica, Rakovica…) would sink into the dark background — those use the main text colour, the swatch keeps the colour
-const lum=h=>{const v=[1,3,5].map(i=>{const c=parseInt(h.slice(i,i+2),16)/255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
 D.forEach((d,i)=>{const t=document.createElement('div');t.className='t';t.innerHTML=`<img src="logos/${d[0]}.webp" alt="${d[1]}">`;t.addEventListener('click',()=>go(i));strip.appendChild(t)});
 let cur=-1;
 function go(i){
@@ -13,7 +11,7 @@ function go(i){
   // info
   const info=R.querySelector('.d-info');
   const fill=()=>{$('dN').textContent=pad(i+1);$('dName').textContent=d[1];$('dLat').textContent=d[2];$('dF').textContent=d[4];$('dC').textContent=d[5];$('dH').textContent=d[6];
-    const ink=lum(d[3])<.2?'var(--txt)':d[3];R.querySelector('.d-num').style.color=ink;['dB1','dB2','dB3'].forEach(k=>$(k).style.color=ink);$('dSw').style.background=d[3]};
+    R.querySelector('.d-num').style.color=d[3];['dB1','dB2','dB3'].forEach(k=>$(k).style.color=d[3]==='#ffcf49'||d[3]==='#95cbfb'||d[3]==='#8fd969'||d[3]==='#e7b780'?'#1b1b1b':d[3]);$('dSw').style.background=d[3]};
   if(reduce)fill();else info.animate([{opacity:1,transform:'none'},{opacity:0,transform:`translateX(${-20*dir}px)`}],{duration:180,fill:'forwards'}).onfinish=()=>{fill();
     info.animate([{opacity:0,transform:`translateX(${24*dir}px)`},{opacity:1,transform:'none'}],{duration:420,easing:'cubic-bezier(.2,.9,.2,1)',fill:'forwards'})};
   // sign swap: the old sign leaves completely before the new one appears — never overlapping
