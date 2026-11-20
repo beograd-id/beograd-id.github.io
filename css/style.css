@@ -270,22 +270,11 @@ body{background:#141313}
 #sys line.net.on{stroke:#fc3030;opacity:1}
 #project .tile.card,#project .tile.card.mine{outline:none}
 
-/* ---- ШРИФТ: слева мозаика плашек палитры разной ширины (как сам шрифт — без единой сетки),
-   под ней имя и кнопка «Скачать шрифт»; справа текст. ---- */
+/* ---- ШРИФТ: слева свободная композиция из знаков (по эскизу Алисы), под ней имя и кнопка «Скачать шрифт»; справа текст. ---- */
 #font{background:#fff}
-#font .f-title{position:absolute;left:100px;top:100px;font:400 var(--h1)/normal 'SRBPRO',sans-serif;color:#3b342d;z-index:5}
-#font .f-vis{position:absolute;left:100px;top:164px;width:660px;height:492px;z-index:3}
-/* A — мозаика плашек разной ширины */
-#font .f-tiles{display:grid;width:660px;height:492px;grid-template-columns:repeat(6,1fr);grid-auto-rows:1fr;gap:8px}
-#font .t{position:relative;padding:16px 18px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
-#font .t i{position:absolute;left:18px;top:14px;font:italic 400 12px/1 'Inter',sans-serif;opacity:.75}
-#font .t p{font:400 19px/1.2 'SRBPRO',sans-serif}
-#font .t p.xl{font-size:68px;line-height:1}#font .t p.l{font-size:40px;line-height:1}#font .t p.m{font-size:34px;line-height:1}
-#font .t.dk{color:#3b342d}
-#font .w2{grid-column:span 2}#font .w3{grid-column:span 3}#font .w4{grid-column:span 4}
-#font .c-red{background:#fc3030}#font .c-blue{background:#4f7dff}#font .c-yel{background:#ffcf49}#font .c-gr{background:#3b342d}#font .c-tea{background:#2ba59b}#font .c-sky{background:#95cbfb}
+#font .f-vis{position:absolute;left:100px;top:160px;width:660px;height:620px;z-index:3}
 /* имя и кнопка — сразу под образцом */
-#font .f-under{position:absolute;left:100px;top:684px;width:660px;display:flex;align-items:center;justify-content:space-between;z-index:5}
+#font .f-under{position:absolute;left:100px;top:800px;width:660px;display:flex;align-items:center;justify-content:space-between;z-index:5}
 #font .f-name{font:400 var(--h2)/1 'SRBPRO',sans-serif;color:#3b342d}
 #font .f-name i{font:italic 400 13px/1 'Inter',sans-serif;opacity:.5;margin-left:14px}
 #font .f-btn{display:inline-flex;align-items:center;gap:10px;border-radius:30px;padding:10px 26px;background:#3b342d;color:#fff;
@@ -298,3 +287,11 @@ body{background:#141313}
 #font .f-text{position:absolute;left:840px;top:164px;width:500px;display:flex;flex-direction:column;gap:22px;z-index:5}
 #font .f-text b{display:block;font:400 var(--label)/1 'SRBPRO',sans-serif;letter-spacing:.06em;color:#fc3030;margin-bottom:8px}
 #font .f-text p{font:400 var(--body)/1.38 'Inter',sans-serif;color:#3b342d}
+/* композиция из знаков шрифта (js/font.js), знаки и кольцо можно двигать */
+#font .f-pile{position:absolute;inset:0}
+#font .f-pile .ring{position:absolute;left:0;top:0;border-radius:50%;z-index:1;cursor:grab;touch-action:none;transition:transform .5s cubic-bezier(.2,.9,.2,1)}
+#font .f-pile .ring.drag{cursor:grabbing;transition:none}
+#font .f-pile .g{position:absolute;left:0;top:0;font-family:'SRBPRO',sans-serif;line-height:1;white-space:pre;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;transition:transform .5s cubic-bezier(.2,.9,.2,1)}
+#font .f-pile .g.drag{cursor:grabbing;transition:none}
+#font .f-shuffle{position:absolute;right:0;top:-26px;border:0;background:none;font:italic 400 13px/1 'Inter',sans-serif;color:#3b342d;opacity:.5;cursor:pointer;z-index:2000}
+#font .f-shuffle:hover{opacity:1}

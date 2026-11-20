@@ -75,23 +75,16 @@
 </section>
 
 <section id="font" class="slide" data-hash="font" data-theme="light">
-  <h2 class="f-title">Шрифт</h2>
   <div class="f-vis">
-    <div class="f-tiles">
-      <div class="t c-red w4"><i>кириллица</i><p class="xl">БЕОГРАД</p></div>
-      <div class="t c-blue w2"><i>сербские</i><p class="l">ЂЉЋЏ</p></div>
-      <div class="t c-yel w2 dk"><i>латиница</i><p class="l">BEOGRAD</p></div>
-      <div class="t c-gr w4"><i>сербская кириллица</i><p>ЉУБАЗНИ ФЕЊЕРЏИЈА ЧАЂАВОГ ЛИЦА ХОЋЕ ДА МИ ПОКАЖЕ ШТОС</p></div>
-      <div class="t c-tea w3"><i>цифры</i><p class="m">0123456789</p></div>
-      <div class="t c-sky w3 dk"><i>английский</i><p>THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG</p></div>
-    </div>
+    <div class="f-pile" id="fPile"></div>
+    <button class="f-shuffle" id="fShuffle" type="button">вернуть на место</button>
   </div>
   <div class="f-under">
     <div class="f-name">SRBPRO <i>OTF · 30 КБ</i></div>
     <a class="f-btn" href="fonts/SRBPRO.otf" download="SRBPRO.otf">Скачать шрифт<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 7.5 8 12l4.5-4.5M2.5 14.5h11"/></svg></a>
   </div>
   <div class="f-text">
-    <div class="f-head"><div><span>АКЦИДЕНТНЫЙ ШРИФТ</span><span>110 ГЛИФОВ</span></div><i>первый шрифт автора</i></div>
+    <div class="f-head"><div><span>АКЦИДЕНТНЫЙ ШРИФТ</span><span>110 ГЛИФОВ</span></div><i>шрифт можно скачать и установить себе на компьютер</i></div>
     <div><b>ОПИСАНИЕ</b><p>SRBPRO — акцидентный гротеск, созданный для визуальной идентичности Белграда. Знаки намеренно не сведены к единой ширине, как здания разных эпох на одной улице. Арочный верх А и Д отсылает к белградскому модернизму, буква И с поднятой диагональю — к старой надписной кириллице.</p></div>
     <div><b>ПРИМЕНЕНИЕ</b><p>Заголовки, цифры и названия общин во всех носителях проекта. Шрифт капительный: строчные повторяют прописные.</p></div>
     <div><b>ЯЗЫКИ</b><p>Русский, сербский — кириллица и латиница, включая Ђ Ј Љ Њ Ћ Џ и Ć Č Đ Š Ž, — и английский.</p></div>
@@ -103,6 +96,7 @@
 <script src="js/history.js"></script>
 <script src="js/project.js"></script>
 <script src="js/districts.js"></script>
+<script src="js/font.js"></script>
 <script src="js/reveal.js"></script>
 <script src="js/typo.js"></script>
 </body>
