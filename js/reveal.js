@@ -9,7 +9,8 @@ const PLAN={
   stage:[['.title','left',0,0],['.text p:not(.gap)','up',120,70],['#strip','up',500,0]],
   project:[['.p-text h2','left',0,0],['.p-body p:not(.gap)','up',120,70],['#fact','up',520,0],['.credit','fade',900,0]],
   districts:[['.d-title','left',0,0],['.d-lead','up',120,0],['.d-info .d-num','left',220,0],['.d-info .d-name','left',300,0],['.d-info .d-lat','left',360,0],
-    ['.d-blocks>div','up',420,110],['.stage','zoom',200,0],['.strip .t','up',500,45]]};
+    ['.d-blocks>div','up',420,110],['.stage','zoom',200,0],['.strip .t','up',500,45]],
+  font:[['.f-title','left',0,0],['.f-vis','zoom',150,0],['.f-under>*','up',400,90],['.f-text>div','up',300,100]]};
 const live=new Map();
 function play(slide){const plan=PLAN[slide.id];if(!plan)return;
   (live.get(slide)||[]).forEach(a=>a.cancel());const run=[];

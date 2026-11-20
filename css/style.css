@@ -1,3 +1,6 @@
+/* Типографская шкала: h1 — заголовок экрана, h2 — заголовок внутри экрана (община, факт), body — текст, label — подписи.
+   Крупные цифры (01, 5000) — акцентные, в шкалу не входят. */
+:root{--h1:34px;--h2:24px;--body:16px;--label:12px}
 @font-face{font-family:'SRBPRO';src:url('../fonts/SRBPRO.otf') format('opentype');font-display:block}
 @font-face{font-family:'ProSRB';src:url('../fonts/ProSRB.otf') format('opentype');font-display:block}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -13,7 +16,7 @@ body{background:#141313}
 /* screen 3 — about the project */
 #project{background:#fff}
 #project .p-text{position:absolute;left:100px;top:100px;width:610px;display:flex;flex-direction:column;gap:30px;z-index:5}
-#project h2{font:400 34px/normal 'SRBPRO',sans-serif;color:#3b342d}
+#project h2{font:400 var(--h1)/normal 'SRBPRO',sans-serif;color:#3b342d}
 #project .p-body{font:400 16px/normal 'Inter',sans-serif;color:#3b342d}
 #project .p-body p{margin:0}#project .p-body p.gap{height:19px}
 #thread{position:absolute;inset:0;width:1440px;height:873px;z-index:1;pointer-events:none;overflow:visible}
@@ -124,7 +127,7 @@ body{background:#141313}
 #fact{position:absolute;left:100px;top:500px;width:560px;z-index:5}
 #fact .fnum{font:400 96px/1 'SRBPRO',sans-serif;color:#fc3030;display:flex;align-items:flex-end;gap:16px}
 #fact .fnum small{font-size:13px;color:#3b342d;opacity:.5;margin-bottom:14px;letter-spacing:.04em}
-#fact h3{font:400 24px/normal 'SRBPRO',sans-serif;color:#3b342d;margin:18px 0 12px}
+#fact h3{font:400 var(--h2)/normal 'SRBPRO',sans-serif;color:#3b342d;margin:18px 0 12px}
 #fact p{font:400 16px/1.35 'Inter',sans-serif;color:#3b342d;max-width:520px}
 #fact .bar{height:1.5px;background:#ececec;margin-top:26px;width:520px;overflow:hidden}
 #fact .bar i{display:block;height:100%;width:0;background:#fc3030}
@@ -155,16 +158,16 @@ body{background:#141313}
 
 /* ---- screen 4: districts slider ---- */
 #districts{background:#fff}
-#districts .d-title{position:absolute;left:100px;top:100px;font:400 34px/normal 'SRBPRO',sans-serif;color:#3b342d;z-index:5}
+#districts .d-title{position:absolute;left:100px;top:100px;font:400 var(--h1)/normal 'SRBPRO',sans-serif;color:#3b342d;z-index:5}
 #districts .d-lead{position:absolute;left:100px;top:164px;width:520px;font:400 16px/normal 'Inter',sans-serif;color:#3b342d;z-index:5}
 #districts .d-info{position:absolute;left:100px;top:262px;width:540px;z-index:5}
 #districts .d-num{font:400 96px/1 'SRBPRO',sans-serif;display:flex;align-items:flex-end;gap:16px;transition:color .5s}
 #districts .d-num small{font-size:13px;color:#3b342d;opacity:.5;margin-bottom:14px}
-#districts .d-name{font:400 44px/1.05 'SRBPRO',sans-serif;color:#3b342d;margin-top:18px}
+#districts .d-name{font:400 var(--h2)/normal 'SRBPRO',sans-serif;color:#3b342d;margin-top:18px}
 #districts .d-lat{font:italic 400 14px/1 'Inter',sans-serif;color:#3b342d;opacity:.5;margin-top:8px}
 #districts .d-blocks{margin-top:26px;display:flex;flex-direction:column;gap:14px}
 #districts .d-blocks b{display:block;font:400 12px/1 'SRBPRO',sans-serif;letter-spacing:.06em;margin-bottom:5px;transition:color .5s}
-#districts .d-blocks p{font:400 15px/1.38 'Inter',sans-serif;color:#3b342d;max-width:520px}
+#districts .d-blocks p{font:400 var(--body)/1.38 'Inter',sans-serif;color:#3b342d;max-width:520px}
 #districts .d-swatch{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:-1px;transition:background .5s}
 #districts .stage{position:absolute;left:720px;top:164px;width:620px;height:512px;z-index:3;overflow:hidden;
   background:#f1ece2 url(../hero/paper.png) 0 0/320px 320px repeat} /* самодельная бумага, как в карте; ровно в правую колонку: 720–1340 × 164–676 */
@@ -212,7 +215,7 @@ body{background:#141313}
 /* screen 2 — about */
 #about{position:relative;width:1440px;height:873px;background:#dcdcdc;overflow:hidden;perspective:1700px;perspective-origin:1050px 436px}
 #about .a-text{position:absolute;left:100px;top:100px;width:610px;display:flex;flex-direction:column;gap:30px;z-index:5}
-#about h2{font:34px/normal 'SRBPRO',sans-serif;color:#3b342d;font-weight:400}
+#about h2{font:var(--h1)/normal 'SRBPRO',sans-serif;color:#3b342d;font-weight:400}
 #about .a-body{font:400 16px/normal 'Inter',sans-serif;color:#3b342d}
 #about .a-body p{margin:0}#about .a-body p.gap{height:19px}
 #tilt{position:absolute;left:1045px;top:446px;width:0;height:0;transform-style:preserve-3d;transform:rotateZ(11deg) rotateX(-10deg)}
@@ -226,7 +229,7 @@ body{background:#141313}
   box-shadow:0 30px 70px rgba(0,0,0,.35),0 6px 18px rgba(0,0,0,.2);transform-origin:0 0;will-change:transform,opacity}
 @keyframes spin{from{transform:rotateY(0deg)}to{transform:rotateY(-360deg)}}
 .abs{position:absolute}
-.title{left:100px;top:100px;width:190px;font:34px/normal 'SRBPRO',sans-serif;color:#fff;z-index:2}
+.title{left:100px;top:100px;width:190px;font:var(--h1)/normal 'SRBPRO',sans-serif;color:#fff;z-index:2}
 .text{left:100px;top:164px;width:715px;font:400 16px/normal 'Inter',sans-serif;color:#fff;z-index:2}
 .text p{margin:0}.text p.gap{height:19px}
 .el{position:absolute;pointer-events:none}
@@ -266,3 +269,32 @@ body{background:#141313}
 #sys line.net,#sys line.net.bg,#sys line.net.on{stroke-width:.7}
 #sys line.net.on{stroke:#fc3030;opacity:1}
 #project .tile.card,#project .tile.card.mine{outline:none}
+
+/* ---- ШРИФТ: слева мозаика плашек палитры разной ширины (как сам шрифт — без единой сетки),
+   под ней имя и кнопка «Скачать шрифт»; справа текст. ---- */
+#font{background:#fff}
+#font .f-title{position:absolute;left:100px;top:100px;font:400 var(--h1)/normal 'SRBPRO',sans-serif;color:#3b342d;z-index:5}
+#font .f-vis{position:absolute;left:100px;top:164px;width:660px;height:492px;z-index:3}
+/* A — мозаика плашек разной ширины */
+#font .f-tiles{display:grid;width:660px;height:492px;grid-template-columns:repeat(6,1fr);grid-auto-rows:1fr;gap:8px}
+#font .t{position:relative;padding:16px 18px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+#font .t i{position:absolute;left:18px;top:14px;font:italic 400 12px/1 'Inter',sans-serif;opacity:.75}
+#font .t p{font:400 19px/1.2 'SRBPRO',sans-serif}
+#font .t p.xl{font-size:68px;line-height:1}#font .t p.l{font-size:40px;line-height:1}#font .t p.m{font-size:34px;line-height:1}
+#font .t.dk{color:#3b342d}
+#font .w2{grid-column:span 2}#font .w3{grid-column:span 3}#font .w4{grid-column:span 4}
+#font .c-red{background:#fc3030}#font .c-blue{background:#4f7dff}#font .c-yel{background:#ffcf49}#font .c-gr{background:#3b342d}#font .c-tea{background:#2ba59b}#font .c-sky{background:#95cbfb}
+/* имя и кнопка — сразу под образцом */
+#font .f-under{position:absolute;left:100px;top:684px;width:660px;display:flex;align-items:center;justify-content:space-between;z-index:5}
+#font .f-name{font:400 var(--h2)/1 'SRBPRO',sans-serif;color:#3b342d}
+#font .f-name i{font:italic 400 13px/1 'Inter',sans-serif;opacity:.5;margin-left:14px}
+#font .f-btn{display:inline-flex;align-items:center;gap:10px;border-radius:30px;padding:10px 26px;background:#3b342d;color:#fff;
+  font:400 16px/normal 'Inter',sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background .3s,transform .3s}
+#font .f-btn:hover{background:#fc3030;transform:translateY(-2px)}
+#font .f-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+/* текст справа: «акцидентный шрифт» и «110 глифов» одной строкой, на равных */
+#font .f-head>div{display:flex;justify-content:space-between;font:400 var(--h2)/1 'SRBPRO',sans-serif;color:#3b342d}
+#font .f-head i{display:block;margin-top:10px;font:italic 400 13px/1 'Inter',sans-serif;color:#3b342d;opacity:.5}
+#font .f-text{position:absolute;left:840px;top:164px;width:500px;display:flex;flex-direction:column;gap:22px;z-index:5}
+#font .f-text b{display:block;font:400 var(--label)/1 'SRBPRO',sans-serif;letter-spacing:.06em;color:#fc3030;margin-bottom:8px}
+#font .f-text p{font:400 var(--body)/1.38 'Inter',sans-serif;color:#3b342d}
