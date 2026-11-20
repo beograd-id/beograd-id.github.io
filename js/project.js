@@ -63,14 +63,18 @@ function closePeek(el){if(cur!==el)return;cur=null;const st=getComputedStyle(pee
 // ---------- drag: every card can be moved, its links follow; a reload puts everything back ----------
 let drag=null,zTop=10;
 tiles.forEach(el=>{const n=el._node;
-  el.addEventListener('pointerenter',()=>{if(!drag)openPeek(el)});el.addEventListener('pointerleave',()=>closePeek(el));
+  el.addEventListener('pointerenter',e=>{if(!drag&&e.pointerType==='mouse')openPeek(el)});el.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')closePeek(el)});
   el.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true});
   el.addEventListener('pointerdown',e=>{if(e.button)return;e.preventDefault();const [sx,sy]=window.__deck.toStage(e.clientX,e.clientY);
     drag={n,dx:n.x-sx,dy:n.y-sy,moved:false};el.setPointerCapture(e.pointerId);el.style.zIndex=++zTop;el.classList.add('drag');closePeek(el)});
   el.addEventListener('pointermove',e=>{if(!drag||drag.n!==n)return;const [sx,sy]=window.__deck.toStage(e.clientX,e.clientY);
     const nx=sx+drag.dx,ny=sy+drag.dy;if(Math.abs(nx-n.x)+Math.abs(ny-n.y)>2)drag.moved=true;n.x=nx;n.y=ny;clamp(n);place(n);n.ed.forEach(lay)});
-  const end=()=>{if(!drag||drag.n!==n)return;const moved=drag.moved;drag=null;el.classList.remove('drag');if(!moved)show(n.f,n.f>curF?1:-1)};
+  const end=e=>{if(!drag||drag.n!==n)return;const moved=drag.moved;drag=null;el.classList.remove('drag');if(!moved){show(n.f,n.f>curF?1:-1);
+    // finger or pen: a tap opens the picture (there is no hover), the next tap anywhere closes it
+    if(e.type==='pointerup'&&e.pointerType!=='mouse')openPeek(el)}};
   el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end)});
+P.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'&&cur&&!e.target.closest('.tile'))closePeek(cur)});
+addEventListener('deckchange',()=>{if(cur)closePeek(cur)});
 // ---------- facts: the arrows light up another bundle ----------
 const N=FACTS.length,fN=document.getElementById('fN'),fT=document.getElementById('fT'),fD=document.getElementById('fD');
 document.getElementById('fOf').textContent='/ '+String(N).padStart(2,'0');
