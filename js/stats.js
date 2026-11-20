@@ -4,6 +4,7 @@
 const seen=new Set(),queue=[];
 const NAMES={home:'Заставка',city:'О городе',project:'О проекте',districts:'Общины',font:'Шрифт',map:'Карта города',merch:'Носители'};
 const send=p=>{const gc=window.goatcounter;if(gc&&gc.count)gc.count({path:p.path,title:p.title});else queue.push(p)};
+window.__stat=h=>{if(seen.has(h))return;seen.add(h);send({path:'/'+h,title:NAMES[h]||h})};
 addEventListener('deckenter',e=>{const s=e.detail.slide;if(!s)return;const h=s.dataset.hash||'home';if(seen.has(h))return;seen.add(h);
   send({path:'/'+h,title:NAMES[h]||h})});
 // the counter script loads async; flush what arrived before it

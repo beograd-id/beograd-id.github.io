@@ -299,7 +299,8 @@ body{background:#141313}
 #font .f-shuffle{position:absolute;right:0;top:-26px;border:0;background:none;font:italic 400 13px/1 'Inter',sans-serif;color:#3b342d;opacity:.5;cursor:pointer;z-index:2000}
 #font .f-shuffle:hover{opacity:1}
 /* ---- КАРТА ГОРОДА: слева что умеет карта, в центре живая карта в рамке телефона, справа QR и ссылки ---- */
-#citymap{background:#fff}
+#citymap{position:absolute;left:0;top:0;width:1440px;height:873px;background:#fff}
+#merch .g-merch{position:absolute;left:0;top:873px;width:1440px}
 #citymap .m-title{position:absolute;left:100px;top:100px;font:400 var(--h1)/normal 'SRBPRO',sans-serif;color:#3b342d}
 #citymap .m-lead{position:absolute;left:100px;top:164px;width:560px;font:400 var(--body)/1.38 'Inter',sans-serif;color:#3b342d}
 #citymap .m-feats{position:absolute;left:100px;top:292px;width:580px;display:grid;grid-template-columns:1fr 1fr;column-gap:36px;row-gap:22px}

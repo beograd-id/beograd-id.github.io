@@ -92,7 +92,10 @@ let ty=null,tx=null,tTop=0;
 addEventListener('touchstart',e=>{if(e.touches.length===1){ty=e.touches[0].clientY;tx=e.touches[0].clientX;const sc=scroller();tTop=sc?sc.scrollTop:0}},{passive:true});
 addEventListener('touchmove',e=>{const sc=scroller();if(!(sc&&sc.contains(e.target)))e.preventDefault()},{passive:false});
 addEventListener('touchend',e=>{if(ty===null)return;const t=e.changedTouches[0],dy=t.clientY-ty,dx=t.clientX-tx;ty=tx=null;
-  if(busy())return;const sc=scroller();if(sc&&(sc.scrollTop!==tTop||canScroll(sc,dy<0?1:-1)))return;if(Math.abs(dy)>50&&Math.abs(dy)>Math.abs(dx)*1.2)step(dy<0?1:-1)},{passive:true});
+  if(busy())return;const sc=scroller();
+  // inner page: leave it only from the edge the swipe started at (iOS rubber-band makes scrollTop negative at the top, so compare with <= 0)
+  if(sc){const atTop=sc.scrollTop<=1&&tTop<=1,atEnd=sc.scrollTop+sc.clientHeight>=sc.scrollHeight-1&&tTop+sc.clientHeight>=sc.scrollHeight-1;if(dy>0?!atTop:!atEnd)return}
+  if(Math.abs(dy)>50&&Math.abs(dy)>Math.abs(dx)*1.2)step(dy<0?1:-1)},{passive:true});
 // ---- keyboard ----
 addEventListener('keydown',e=>{
   if(e.target.closest&&e.target.closest('input,textarea'))return;
@@ -105,7 +108,7 @@ addEventListener('keydown',e=>{
 });
 // ---- menu + links ----
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.go)));
-addEventListener('hashchange',()=>{const i=IDS.indexOf(location.hash.slice(1));if(i>=0&&i!==DECK.idx)go(i)});
+addEventListener('hashchange',()=>{if(location.hash==='#merch'&&window.__toMerch){window.__toMerch();return}const i=IDS.indexOf(location.hash.slice(1));if(i>=0&&i!==DECK.idx)go(i)});
 addEventListener('resize',fit);
 // full screen (hidden where the browser can't do it, e.g. iPhone Safari)
 const fsBtn=document.getElementById('fsBtn');
@@ -116,7 +119,7 @@ const vp=document.getElementById('vp');
 const pin=()=>{if(vp.scrollTop||vp.scrollLeft){vp.scrollTop=0;vp.scrollLeft=0}if(scrollX||scrollY)scrollTo(0,0)};
 vp.addEventListener('scroll',pin);addEventListener('scroll',pin);addEventListener('load',pin);
 // start on the screen named in the address (#home, #city, #project, #districts)
-const start=IDS.indexOf(location.hash.slice(1));DECK.idx=start>0?start:0;DECK.p=DECK.idx;fit();
+const start=IDS.indexOf(location.hash==='#merch'?'map':location.hash.slice(1));DECK.idx=start>0?start:0;DECK.p=DECK.idx;fit();
 // the first screen plays its entrance once every script has attached
 addEventListener('DOMContentLoaded',()=>dispatchEvent(new CustomEvent('deckenter',{detail:{idx:DECK.idx,slide:slides[DECK.idx]}})));
 })();

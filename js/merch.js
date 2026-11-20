@@ -25,13 +25,15 @@ const ITEMS=[
   ['gloves-flat','Перчатки',100,2202,610,460,'50% 50%'],
   ['socks-four','Носки',730,2202,610,460,'60% 50%']];
 const END=2762; // footer top: 100 below the last row
-const sc=slide.querySelector('.g-scroll'),pg=slide.querySelector('.g-page');
+const sc=slide.querySelector('.g-scroll'),pg=slide.querySelector('.g-page'),box=slide.querySelector('.g-merch');
+// the page starts with «Карта города» (one screen, 873 tall); «Носители» begin right under it
+const MAP_H=873,wantMerch=location.hash==='#merch';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const tiles=ITEMS.map(([f,cap,x,y,w,h,pos])=>{
   const el=document.createElement('figure');el.className='g-t';
   Object.assign(el.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
   const im=new Image();im.src='merch/'+f+'.webp';im.alt=cap;im.decoding='async';im.loading='lazy';im.style.objectPosition=pos;
-  el.append(im);pg.appendChild(el);return el});
+  el.append(im);box.appendChild(el);return el});
 const foot=document.createElement('footer');foot.className='g-foot';foot.style.top=END+'px';
 foot.innerHTML=`<div class="g-fcol g-fmain"><div class="g-fname">Визуальная идентичность Белграда</div><p>Некоммерческий авторский проект, 2026</p>
   <button type="button" class="g-top">в начало<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 11V1M1.5 5.5 6 1l4.5 4.5"/></svg></button></div>
@@ -39,9 +41,9 @@ foot.innerHTML=`<div class="g-fcol g-fmain"><div class="g-fname">Визуаль�
 <div class="g-fcol"><b>ИЗОБРАЖЕНИЯ</b><p>Гербы общин и фотографии города приводятся в исследовательских целях, права на них принадлежат владельцам. Носители — визуализации, созданные с помощью нейросети.</p></div>
 <div class="g-fcol"><b>ДАННЫЕ</b><p>Сайт не использует cookies и не собирает персональные данные. Посещения считаются анонимно через <a href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a>. Шрифт Inter загружается с Google Fonts, погода — с <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), карта — с OpenFreeMap (© участники <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>): эти сервисы видят технические данные запроса, например IP-адрес.</p></div>
 <div class="g-fcopy">© 2026. Знаки общин, шрифт SRBPRO и тексты — авторская работа; использование — с указанием источника.</div>`;
-pg.appendChild(foot);
+box.appendChild(foot);
 foot.querySelector('.g-top').addEventListener('click',()=>DECK.go(0));
-pg.style.height=(END+foot.offsetHeight+60)+'px';
+pg.style.height=(MAP_H+END+foot.offsetHeight+60)+'px';
 // the deck scrolls this element natively and moves to the previous screen only from its very top
 slide._scroller=sc;
 // photos rise in as they scroll into view (every time the screen is opened)
@@ -53,5 +55,10 @@ function arm(){
   io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('wait');io.unobserve(e.target)}}),{root:sc,rootMargin:'0px 0px -8% 0px'});
   tiles.forEach(t=>io.observe(t));
 }
-addEventListener('deckenter',e=>{if(e.detail.slide!==slide)return;sc.scrollTop=0;arm()});
+let jump=wantMerch;
+addEventListener('deckenter',e=>{if(e.detail.slide!==slide)return;sc.scrollTop=jump?MAP_H:0;jump=false;arm()});
+// a #merch link opens the page right at «Носители»
+window.__toMerch=()=>{if(DECK.idx===DECK.indexOf(slide))sc.scrollTo({top:MAP_H,behavior:'smooth'});else{jump=true;DECK.go(DECK.indexOf(slide))}};
+// statistics: «Носители» count as their own screen once the reader scrolls down to them
+let counted=false;sc.addEventListener('scroll',()=>{if(!counted&&sc.scrollTop>MAP_H*.6&&window.__stat){counted=true;window.__stat('merch')}},{passive:true});
 })();
