@@ -337,18 +337,28 @@ body{background:#141313}
 #merch .g-scroll::-webkit-scrollbar{display:none}
 #merch .g-page{position:relative;width:1440px}
 #merch .g-title{position:absolute;left:100px;top:100px;font:400 var(--h1)/normal 'SRBPRO',sans-serif;color:#3b342d}
-#merch .g-lead{position:absolute;left:100px;top:164px;width:540px;font:400 var(--body)/1.38 'Inter',sans-serif;color:#3b342d}
-#merch .g-feats{position:absolute;left:100px;top:292px;width:540px;display:grid;grid-template-columns:1fr 1fr;column-gap:20px}
+#merch .g-lead{position:absolute;left:800px;top:164px;width:540px;font:400 var(--body)/1.38 'Inter',sans-serif;color:#3b342d}
+#merch .g-lead p{margin:0 0 8px}
+#merch .g-feats{position:absolute;left:520px;top:718px;width:504px}
 #merch .g-feats b{display:block;font:400 var(--label)/1 'SRBPRO',sans-serif;letter-spacing:.06em;color:#fc3030;margin-bottom:8px}
 #merch .g-feats p{font:400 14px/1.4 'Inter',sans-serif;color:#3b342d}
+#merch .g-about{position:absolute;left:100px;top:1196px;width:400px;color:#3b342d}
+#merch .g-about h3{margin:0 0 20px;font:400 var(--h2)/1.1 'SRBPRO',sans-serif}
+#merch .g-about p{margin:0 0 14px;font:400 var(--body)/1.38 'Inter',sans-serif}
+#merch .g-foot{position:absolute;left:100px;width:1240px;display:grid;grid-template-columns:400px 180px 290px 310px;column-gap:20px;row-gap:28px;padding-top:28px;border-top:1px solid rgba(59,52,45,.18);color:#3b342d;font:400 14px/1.4 'Inter',sans-serif}
+#merch .g-fname{font:400 var(--h2)/1.1 'SRBPRO',sans-serif;margin-bottom:10px}
+#merch .g-foot p{margin:0}
+#merch .g-foot b{display:block;font:400 var(--label)/1 'SRBPRO',sans-serif;letter-spacing:.06em;color:#fc3030;margin-bottom:8px}
+#merch .g-foot a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(59,52,45,.35)}
+#merch .g-foot a:hover{color:#fc3030;text-decoration-color:#fc3030}
+#merch .g-fcopy{grid-column:1/-1;padding-top:20px;border-top:1px solid rgba(59,52,45,.12);font-size:12px;opacity:.7}
+#merch .g-top{display:inline-flex;align-items:center;gap:10px;margin-top:24px;border:0;border-radius:30px;padding:12px 24px;background:#3b342d;color:#fff;font:400 var(--body)/1 'Inter',sans-serif;cursor:pointer;transition:background .3s}
+#merch .g-top:hover{background:#fc3030}
 #merch .g-t{position:absolute;margin:0;overflow:hidden;background:#f1ece2;transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
 #merch .g-t img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
 #merch .g-t.wait{opacity:0;transform:translateY(60px)}
 #merch .g-t.wait img{transform:scale(1.08)}
 #merch .g-t figcaption{position:absolute;left:16px;bottom:16px;padding:8px 12px 7px;border-radius:30px;background:rgba(255,255,255,.88);
   font:400 var(--label)/1 'SRBPRO',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#3b342d}
-#merch .g-foot{position:absolute;left:100px;width:1240px;display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid rgba(59,52,45,.18);
   font:400 var(--body)/1 'Inter',sans-serif;color:#3b342d}
-#merch .g-top{display:flex;align-items:center;gap:10px;border:0;border-radius:30px;padding:12px 24px;background:#3b342d;color:#fff;font:400 var(--body)/1 'Inter',sans-serif;cursor:pointer;transition:background .3s}
-#merch .g-top:hover{background:#fc3030}
 #hdr .pill.fs{display:flex;align-items:center;padding:10px 13px}

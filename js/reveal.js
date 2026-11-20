@@ -11,7 +11,7 @@ const PLAN={
   districts:[['.d-title','left',0,0],['.d-lead','up',120,0],['.d-info .d-num','left',220,0],['.d-info .d-name','left',300,0],['.d-info .d-lat','left',360,0],
     ['.d-blocks>div','up',420,110],['.stage','zoom',200,0],['.strip .t','up',500,45]],
   citymap:[['.m-title','left',0,0],['.m-lead','up',120,0],['.m-feats>div','up',260,60],['.m-phone','up',150,0],['.m-side>*','up',450,80]],
-  merch:[['.g-title','left',0,0],['.g-lead','up',120,0],['.g-feats>div','up',260,90]],
+  merch:[['.g-title','left',0,0],['.g-lead','up',120,0],['.g-feats','up',260,0]],
   font:[['.f-vis','zoom',150,0],['.f-under>*','up',400,90],['.f-text>div','up',300,100]]};
 const live=new Map();
 function play(slide){const plan=PLAN[slide.id];if(!plan)return;

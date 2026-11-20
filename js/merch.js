@@ -3,32 +3,45 @@
 // To swap a photo, drop a file with the same name into merch/; to move or resize it, edit the numbers.
 (()=>{
 const slide=document.getElementById('merch');if(!slide)return;
+// Y1 / Y2: tops of the photos under the right text and under «применение» — set to the text height + 28 so the columns close flush
+const Y1=476,Y2=902;
 const ITEMS=[
-  // first screen: text on the left, a wide photo under it, a large photo on the right — all edges meet at 773
-  ['socks-pile','Носки',100,474,600,299,'50% 50%'],
-  ['gloves-flat','Перчатки',720,164,620,609,'50% 50%'],
-  // three equal columns
-  ['facade','Мурал',100,793,400,540,'55% 50%'],
-  ['scarf','Платок',520,793,400,540,'58% 40%'],
-  ['gloves-bag','Перчатки',940,793,400,540,'55% 50%'],
-  // mirror of the first row: square, tall, two stacked
-  ['plate','Тарелка',100,1353,600,600,'50% 50%'],
-  ['key-blue','Брелок',720,1353,300,600,'50% 60%'],
-  ['key-beige','Брелок',1040,1353,300,290,'42% 50%'],
-  ['socks-four','Носки',1040,1663,300,290,'60% 50%']];
-const END=2053; // footer top: 100 below the last row
+  // block 1 (164–698): picnic cloth, the blue key (its own tall proportion), the lead text over the street sign
+  ['picnic','Плед',100,164,400,534,'50% 50%'],
+  ['key-blue','Брелок',520,164,260,534,'50% 40%'],
+  ['sign','Табличка',800,Y1,540,698-Y1,'60% 50%'],
+  // block 2 (718–1176): plate, «применение» over two small photos, the mural
+  ['plate','Тарелка',100,718,400,458,'50% 50%'],
+  ['key-beige','Брелок',520,Y2,242,1176-Y2,'50% 56%'],
+  ['bracelet','Браслет',782,Y2,242,1176-Y2,'55% 30%'],
+  ['facade','Мурал',1044,718,296,458,'50% 50%'],
+  // block 3 (1196–1628): «от автора» on the left, socks and necklace
+  ['socks-pile','Носки',520,1196,400,432,'0% 50%'],
+  ['necklace','Колье',940,1196,400,432,'50% 50%'],
+  // block 4 (1648–2182): gloves on the bag next to the scarf
+  ['gloves-bag','Перчатки',100,1648,400,534,'55% 50%'],
+  ['scarf','Платок',520,1648,820,534,'50% 40%'],
+  // block 5 (2202–2662): two halves
+  ['gloves-flat','Перчатки',100,2202,610,460,'50% 50%'],
+  ['socks-four','Носки',730,2202,610,460,'60% 50%']];
+const END=2762; // footer top: 100 below the last row
 const sc=slide.querySelector('.g-scroll'),pg=slide.querySelector('.g-page');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const tiles=ITEMS.map(([f,cap,x,y,w,h,pos])=>{
   const el=document.createElement('figure');el.className='g-t';
   Object.assign(el.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
   const im=new Image();im.src='merch/'+f+'.webp';im.alt=cap;im.decoding='async';im.loading='lazy';im.style.objectPosition=pos;
-  const c=document.createElement('figcaption');c.textContent=cap;
-  el.append(im,c);pg.appendChild(el);return el});
-const foot=document.createElement('div');foot.className='g-foot';foot.style.top=END+'px';
-foot.innerHTML='<span>Визуальная идентичность Белграда</span><button type="button" class="g-top">в начало<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 11V1M1.5 5.5 6 1l4.5 4.5"/></svg></button>';
-pg.appendChild(foot);pg.style.height=(END+144)+'px';
+  el.append(im);pg.appendChild(el);return el});
+const foot=document.createElement('footer');foot.className='g-foot';foot.style.top=END+'px';
+foot.innerHTML=`<div class="g-fcol g-fmain"><div class="g-fname">Визуальная идентичность Белграда</div><p>Некоммерческий авторский проект, 2026</p>
+  <button type="button" class="g-top">в начало<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 11V1M1.5 5.5 6 1l4.5 4.5"/></svg></button></div>
+<div class="g-fcol"><b>КОНТАКТ</b><a href="https://t.me/alisks_design" target="_blank" rel="noopener">Telegram @alisks_design</a></div>
+<div class="g-fcol"><b>ИЗОБРАЖЕНИЯ</b><p>Гербы общин и фотографии города приводятся в исследовательских целях, права на них принадлежат владельцам. Носители — визуализации, созданные с помощью нейросети.</p></div>
+<div class="g-fcol"><b>ДАННЫЕ</b><p>Сайт не использует cookies и счётчики посещений и не собирает персональные данные. Шрифт Inter загружается с Google Fonts, погода — с <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), карта — с OpenFreeMap (© участники <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>): эти сервисы видят технические данные запроса, например IP-адрес.</p></div>
+<div class="g-fcopy">© 2026. Знаки общин, шрифт SRBPRO и тексты — авторская работа; использование — с указанием источника.</div>`;
+pg.appendChild(foot);
 foot.querySelector('.g-top').addEventListener('click',()=>DECK.go(0));
+pg.style.height=(END+foot.offsetHeight+60)+'px';
 // the deck scrolls this element natively and moves to the previous screen only from its very top
 slide._scroller=sc;
 // photos rise in as they scroll into view (every time the screen is opened)
