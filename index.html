@@ -14,7 +14,7 @@
 <body>
 <div id="vp"><div id="deck">
 <header id="hdr" data-theme="dark"><div class="logo" data-go="0"><img class="l0" src="hero/logo.png" alt=""><img class="l1" src="hero/logo-w.png" alt=""></div>
-  <nav class="pills"><div class="pill" data-go="1">о городе</div><div class="pill" data-go="2">о проекте</div><div class="pill" data-go="3">общины</div><div class="pill" data-go="4">шрифт</div><div class="pill">карта города</div><div class="pill sm">ru</div></nav></header>
+  <nav class="pills"><div class="pill" data-go="1">о городе</div><div class="pill" data-go="2">о проекте</div><div class="pill" data-go="3">общины</div><div class="pill" data-go="4">шрифт</div><div class="pill" data-go="5">карта города</div><div class="pill sm">ru</div></nav></header>
 <div id="edge"></div>
 
 <section class="slide" id="hero" data-hash="home" data-theme="dark">
@@ -90,6 +90,27 @@
     <div><b>ЯЗЫКИ</b><p>Русский, сербский — кириллица и латиница, включая Ђ Ј Љ Њ Ћ Џ и Ć Č Đ Š Ž, — и английский.</p></div>
   </div>
 </section>
+<section id="citymap" class="slide" data-hash="map" data-theme="light">
+  <h2 class="m-title">Карта города</h2>
+  <p class="m-lead">Путеводитель по Белграду в цветах проекта. Это не приложение, а сайт-карта: открывается по ссылке в браузере телефона, ничего не нужно устанавливать. Попробуйте прямо здесь — карта справа живая.</p>
+  <div class="m-feats">
+    <div><b>РАЙОНЫ</b><p>Десять общин в цветах своих знаков. Касание по району открывает карточку с его историей и местами.</p></div>
+    <div><b>82 МЕСТА</b><p>Достопримечательности с фотографией и описанием: крепость, храмы, музеи, модернизм, парки и рынки.</p></div>
+    <div><b>ГОТОВЫЕ МАРШРУТЫ</b><p>Три пешие прогулки: Старый град, Врачар и Ташмайдан, Ушће и Земун.</p></div>
+    <div><b>СВОЙ МАРШРУТ</b><p>Отметьте места на карте — она расставит их в удобном порядке и проведёт по улицам, с расстоянием и временем в пути.</p></div>
+    <div><b>РЯДОМ</b><p>Места вокруг вас по удалённости — по геолокации телефона.</p></div>
+    <div><b>ИЗБРАННОЕ</b><p>Отметки «Хочу посетить» и «Посещено» сохраняются на телефоне.</p></div>
+    <div><b>GOOGLE MAPS</b><p>Любое место открывается в Google Maps одним касанием, чтобы доехать на такси или транспорте.</p></div>
+    <div><b>ТРИ ЯЗЫКА</b><p>Русский, английский и сербский. Карту можно добавить на экран «Домой», как значок приложения.</p></div>
+  </div>
+  <div class="m-phone"><div class="m-screen"><div class="m-wait">карта загружается…</div><iframe id="mFrame" title="Карта Белграда" allow="geolocation; clipboard-write" loading="lazy"></iframe></div></div>
+  <div class="m-side">
+    <img class="m-qr" src="img/map-qr.svg" alt="QR-код карты" width="150" height="150">
+    <p class="m-cap">Наведите камеру телефона, чтобы открыть карту у себя</p>
+    <a class="m-btn" href="https://alisanefed-bit.github.io/belgrade-guide/" target="_blank" rel="noopener">Открыть карту<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3 3 13"/></svg></a>
+    <button class="m-btn ghost" id="mCopy" type="button">Скопировать ссылку</button>
+  </div>
+</section>
 </div></div>
 <script src="js/deck.js"></script>
 <script src="js/hero.js"></script>
@@ -97,6 +118,7 @@
 <script src="js/project.js"></script>
 <script src="js/districts.js"></script>
 <script src="js/font.js"></script>
+<script src="js/citymap.js"></script>
 <script src="js/reveal.js"></script>
 <script src="js/typo.js"></script>
 </body>
