@@ -43,8 +43,8 @@ function go(n,instant){
   n=Math.max(0,Math.min(slides.length-1,n));
   if(n===DECK.idx&&!anim&&Math.abs(DECK.p-n)<.001)return;
   const from=DECK.p,dur=(instant||reduce)?0:Math.min(1100,650+Math.abs(n-from)*250);
-  const entering=n!==DECK.idx;DECK.idx=n;if(anim)cancelAnimationFrame(anim);
-  if(entering)dispatchEvent(new CustomEvent('deckenter',{detail:{idx:n,slide:slides[n]}}));
+  const entering=n!==DECK.idx,prev=DECK.idx;DECK.idx=n;if(anim)cancelAnimationFrame(anim);
+  if(entering)dispatchEvent(new CustomEvent('deckenter',{detail:{idx:n,slide:slides[n],from:prev}}));
   try{history.replaceState(null,'','#'+IDS[n])}catch(e){}
   busyUntil=performance.now()+dur+120;
   if(!dur){DECK.p=n;anim=null;render();return}
@@ -55,37 +55,56 @@ function go(n,instant){
 }
 DECK.go=go;
 const busy=()=>performance.now()<busyUntil;
+// a screen may have inner steps (slide._step(dir) returns true while it has a page left in that direction):
+// the screen stays, only its content changes
+function step(dir){const s=slides[DECK.idx];
+  if(s._step&&s._step(dir)){busyUntil=performance.now()+(reduce?200:800);return}
+  go(DECK.idx+dir)}
 // ---- wheel / trackpad: one gesture = one screen (inertia tail is swallowed) ----
-let acc=0,lastWheel=0,used=false;
+let acc=0,lastWheel=0,used=false,innerAt=0;
+// a screen with slide._scroller scrolls like a normal page; the deck takes over only at its edges
+const scroller=()=>slides[DECK.idx]._scroller;
+const canScroll=(sc,dir)=>dir>0?sc.scrollTop+sc.clientHeight<sc.scrollHeight-1:sc.scrollTop>0;
 addEventListener('wheel',e=>{
+  const now=performance.now(),sc=scroller();
+  if(sc&&!busy()&&Math.abs(e.deltaY)>=Math.abs(e.deltaX)&&e.deltaY){
+    if(canScroll(sc,Math.sign(e.deltaY))){innerAt=lastWheel=now;used=true;
+      if(!sc.contains(e.target)){e.preventDefault();sc.scrollTop+=e.deltaY}return}
+    if(now-innerAt<400){innerAt=lastWheel=now;e.preventDefault();return} // inertia reached the edge: same gesture, stay
+  }
   e.preventDefault();
-  const now=performance.now();
   if(busy()){lastWheel=now;used=true;acc=0;return}   // anything during a transition belongs to the same gesture
   if(now-lastWheel>260){used=false;acc=0}            // a real pause starts a new gesture
   lastWheel=now;
   if(used)return;
   if(Math.abs(e.deltaX)>Math.abs(e.deltaY))return;
   acc+=e.deltaMode===1?e.deltaY*30:e.deltaY;
-  if(Math.abs(acc)>35){used=true;go(DECK.idx+(acc>0?1:-1));acc=0}
+  if(Math.abs(acc)>35){used=true;step(acc>0?1:-1);acc=0}
 },{passive:false});
 // ---- touch: vertical swipe changes the screen; horizontal swipes are left to the sliders ----
-let ty=null,tx=null;
-addEventListener('touchstart',e=>{if(e.touches.length===1){ty=e.touches[0].clientY;tx=e.touches[0].clientX}},{passive:true});
-addEventListener('touchmove',e=>{e.preventDefault()},{passive:false});
+let ty=null,tx=null,tTop=0;
+addEventListener('touchstart',e=>{if(e.touches.length===1){ty=e.touches[0].clientY;tx=e.touches[0].clientX;const sc=scroller();tTop=sc?sc.scrollTop:0}},{passive:true});
+addEventListener('touchmove',e=>{const sc=scroller();if(!(sc&&sc.contains(e.target)))e.preventDefault()},{passive:false});
 addEventListener('touchend',e=>{if(ty===null)return;const t=e.changedTouches[0],dy=t.clientY-ty,dx=t.clientX-tx;ty=tx=null;
-  if(busy())return;if(Math.abs(dy)>50&&Math.abs(dy)>Math.abs(dx)*1.2)go(DECK.idx+(dy<0?1:-1))},{passive:true});
+  if(busy())return;const sc=scroller();if(sc&&(sc.scrollTop!==tTop||canScroll(sc,dy<0?1:-1)))return;if(Math.abs(dy)>50&&Math.abs(dy)>Math.abs(dx)*1.2)step(dy<0?1:-1)},{passive:true});
 // ---- keyboard ----
 addEventListener('keydown',e=>{
   if(e.target.closest&&e.target.closest('input,textarea'))return;
-  const k=e.key;
-  if(['ArrowDown','PageDown',' '].includes(k)){e.preventDefault();if(!busy())go(DECK.idx+1)}
-  else if(['ArrowUp','PageUp'].includes(k)){e.preventDefault();if(!busy())go(DECK.idx-1)}
+  const k=e.key,sc=scroller();
+  if(sc&&['ArrowDown','PageDown',' ','ArrowUp','PageUp'].includes(k)){const dir=['ArrowUp','PageUp'].includes(k)?-1:1;
+    if(canScroll(sc,dir)){e.preventDefault();sc.scrollBy({top:dir*(k.startsWith('Arrow')?220:700),behavior:reduce?'auto':'smooth'});return}}
+  if(['ArrowDown','PageDown',' '].includes(k)){e.preventDefault();if(!busy())step(1)}
+  else if(['ArrowUp','PageUp'].includes(k)){e.preventDefault();if(!busy())step(-1)}
   else if(k==='Home'){e.preventDefault();go(0)}else if(k==='End'){e.preventDefault();go(slides.length-1)}
 });
 // ---- menu + links ----
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.go)));
 addEventListener('hashchange',()=>{const i=IDS.indexOf(location.hash.slice(1));if(i>=0&&i!==DECK.idx)go(i)});
 addEventListener('resize',fit);
+// full screen (hidden where the browser can't do it, e.g. iPhone Safari)
+const fsBtn=document.getElementById('fsBtn');
+if(fsBtn){if(!document.fullscreenEnabled)fsBtn.remove();else fsBtn.addEventListener('click',()=>{
+  document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})})}
 // #project / #districts are also element ids: stop the browser from scrolling the viewport to them
 const vp=document.getElementById('vp');
 const pin=()=>{if(vp.scrollTop||vp.scrollLeft){vp.scrollTop=0;vp.scrollLeft=0}if(scrollX||scrollY)scrollTo(0,0)};

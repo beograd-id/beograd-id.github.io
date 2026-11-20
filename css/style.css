@@ -325,3 +325,22 @@ body{background:#141313}
 #citymap .m-btn.ghost{background:#fff;color:#3b342d;box-shadow:inset 0 0 0 1px rgba(59,52,45,.3)}
 #citymap .m-btn.ghost:hover{background:#3b342d;color:#fff}
 #citymap .m-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---- «Носители»: последний экран листается как обычная страница ---- */
+#merch{background:#fff}
+#merch .g-scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(transparent 0,#000 96px);mask-image:linear-gradient(transparent 0,#000 96px)}
+#merch .g-scroll::-webkit-scrollbar{display:none}
+#merch .g-page{position:relative;width:1440px}
+#merch .g-title{position:absolute;left:100px;top:100px;font:400 var(--h1)/normal 'SRBPRO',sans-serif;color:#3b342d}
+#merch .g-t{position:absolute;margin:0;overflow:hidden;background:#f1ece2;transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+#merch .g-t img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
+#merch .g-t.wait{opacity:0;transform:translateY(60px)}
+#merch .g-t.wait img{transform:scale(1.08)}
+#merch .g-t figcaption{position:absolute;left:16px;bottom:16px;padding:8px 12px 7px;border-radius:30px;background:rgba(255,255,255,.88);
+  font:400 var(--label)/1 'SRBPRO',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#3b342d}
+#merch .g-foot{position:absolute;left:100px;width:1240px;display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid rgba(59,52,45,.18);
+  font:400 var(--body)/1 'Inter',sans-serif;color:#3b342d}
+#merch .g-top{display:flex;align-items:center;gap:10px;border:0;border-radius:30px;padding:12px 24px;background:#3b342d;color:#fff;font:400 var(--body)/1 'Inter',sans-serif;cursor:pointer;transition:background .3s}
+#merch .g-top:hover{background:#fc3030}
+#hdr .pill.fs{display:flex;align-items:center;padding:10px 13px}
