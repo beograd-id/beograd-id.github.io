@@ -6,28 +6,32 @@ const slides=[...document.querySelectorAll('.slide:not(.off)')];
 const IDS=slides.map(s=>s.dataset.hash||s.id);
 slides.forEach((s,i)=>{s.style.zIndex=i+1;const sh=document.createElement('div');sh.className='shade';s.appendChild(sh);s._sh=sh});
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let S=1,OX=0,OY=0;
+let S=1,OX=0,OY=0,FX=0,FY=0;
 const DECK=window.DECK={idx:0,p:0,indexOf:el=>slides.indexOf(el),go:null};
 window.__deck={toStage:(cx,cy)=>[(cx-OX)/S,(cy-OY)/S]};
-function fit(){S=Math.min(innerWidth/1440,innerHeight/873);OX=(innerWidth-1440*S)/2;OY=(innerHeight-873*S)/2;
-  deck.style.transform=`translate(${OX}px,${OY}px) scale(${S})`;render()}
+function fit(){S=Math.min(innerWidth/1440,innerHeight/873);OX=(innerWidth-1440*S)/2;OY=0;
+  FX=OX/S;FY=innerHeight/S-873; // layout: centred across, pinned to the top; backgrounds and clipping reach the window edges (FY = extra height below)
+  deck.style.transform=`translate(${OX}px,${OY}px) scale(${S})`;
+  deck.style.setProperty('--fx',FX+'px');deck.style.setProperty('--fb',FY+'px');
+  edge.style.left=-FX+'px';edge.style.width=(1440+2*FX)+'px';render()}
+const FULL=()=>`inset(0 ${-FX}px ${-FY}px)`;
 const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
 const THEMES=slides.map(s=>s.dataset.theme||'light'),hdr=document.getElementById('hdr'),edge=document.getElementById('edge');
 function render(){
   const p=DECK.p;let edgeY=-1,edgeT=0;
   slides.forEach((s,i)=>{
     const d=p-i; // 0 = in place; >0 = covered by the next one; <0 = waiting below
-    if(d<=-1||d>=1.6){s.style.visibility='hidden';return}
+    if(d<=-1||d>=1){s.style.visibility='hidden';return} // fully covered screens are not drawn at all
     s.style.visibility='visible';
     if(d<0){ // incoming: a window opens from the bottom, content moves slower (parallax)
       const t=ease(1+d),k=1-t;
       s.style.transform=`translateY(${k*873*.35}px)`;
-      s.style.clipPath=k>0.0005?`inset(${k*65}% 0 0 0 round ${k*48}px ${k*48}px 0 0)`:'none';
+      s.style.clipPath=`inset(${k*.65*(873+FY)}px ${-FX}px ${-FY}px round ${k*48}px ${k*48}px 0 0)`;
       s._sh.style.opacity=0;edgeY=k*873;edgeT=t;
     } else { // outgoing: tips back like a page and dims
       const t=Math.min(1,d);
       s.style.transform=t>0.0005?`perspective(1600px) translateY(${-t*70}px) rotateX(${t*7}deg) scale(${1-t*.07})`:'none';
-      s.style.clipPath='none';s._sh.style.opacity=t*.6;
+      s.style.clipPath=FULL();s._sh.style.opacity=t*.6;
       s.style.pointerEvents=t>0.5?'none':'';
     }
   });
