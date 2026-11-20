@@ -38,10 +38,10 @@ function step(now){
       if(sp>f.base){const s=Math.max(f.base/sp,1-1.6*dt);f.vx*=s;f.vy*=s}else if(sp<f.base*.7){f.vx*=1.02;f.vy*=1.02}
       f.vr*=1-1.2*dt;if(Math.abs(f.vr)<2)f.vr+=(Math.random()-.5)*.4;
       f.x+=f.vx*dt;f.y+=f.vy*dt;f.rot+=f.vr*dt;
-      // bounce on frame edges
-      const pad=f.r*.6;
-      if(f.x<pad){f.x=pad;f.vx=Math.abs(f.vx)}if(f.x>1440-pad){f.x=1440-pad;f.vx=-Math.abs(f.vx)}
-      if(f.y<pad){f.y=pad;f.vy=Math.abs(f.vy)}if(f.y>873-pad){f.y=873-pad;f.vy=-Math.abs(f.vy)}
+      // bounce on the edges of the browser window (not of the 1440×873 layout)
+      const pad=f.r*.6,[L,T,Rr,B]=window.__deck.box();
+      if(f.x<L+pad){f.x=L+pad;f.vx=Math.abs(f.vx)}if(f.x>Rr-pad){f.x=Rr-pad;f.vx=-Math.abs(f.vx)}
+      if(f.y<T+pad){f.y=T+pad;f.vy=Math.abs(f.vy)}if(f.y>B-pad){f.y=B-pad;f.vy=-Math.abs(f.vy)}
     }
   }
   if(vis)for(const f of figs){const tilt=Math.max(-14,Math.min(14,f.vx*.12));

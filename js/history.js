@@ -1,5 +1,7 @@
 (()=>{
 const stage=document.getElementById('stage');
+// the collage is cropped to the 1440×873 frame: the red margins of a wide window stay empty
+const crop=document.createElement('div');crop.className='h-crop';stage.prepend(crop);
 
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const POP='cubic-bezier(.34,1.6,.55,1)',OUT='cubic-bezier(.5,0,.9,.4)',EASE='cubic-bezier(.6,0,.2,1)';
@@ -59,7 +61,7 @@ function create(e){
   const img=document.createElement('img');img.src=`img/${key}.webp`;img.alt='';
   if(o.crop){img.style.cssText='position:absolute;max-width:none;object-fit:fill;'+o.crop}
   sw.appendChild(img);fx.appendChild(sw);el.appendChild(fx);
-  Object.assign(el.style,geo(e));stage.appendChild(el);
+  Object.assign(el.style,geo(e));crop.appendChild(el);
   if(!reduce){
     if(kind==='detail')sw.style.animation=`sway ${rnd(2.8,4).toFixed(2)}s ${(-rnd(0,3)).toFixed(2)}s ease-in-out infinite`;
     if(key.startsWith('river'))sw.style.animation='drift 6s ease-in-out infinite';

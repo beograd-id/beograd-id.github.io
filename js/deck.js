@@ -8,7 +8,9 @@ slides.forEach((s,i)=>{s.style.zIndex=i+1;const sh=document.createElement('div')
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let S=1,OX=0,OY=0,FX=0,FY=0;
 const DECK=window.DECK={idx:0,p:0,indexOf:el=>slides.indexOf(el),go:null};
-window.__deck={toStage:(cx,cy)=>[(cx-OX)/S,(cy-OY)/S]};
+window.__deck={toStage:(cx,cy)=>[(cx-OX)/S,(cy-OY)/S],
+  // the whole window in layout units: [left, top, right, bottom] (left is negative when the window is wider than 1440×873)
+  box:()=>[-FX,0,1440+FX,873+FY]};
 function fit(){S=Math.min(innerWidth/1440,innerHeight/873);OX=(innerWidth-1440*S)/2;OY=0;
   FX=OX/S;FY=innerHeight/S-873; // layout: centred across, pinned to the top; backgrounds and clipping reach the window edges (FY = extra height below)
   deck.style.transform=`translate(${OX}px,${OY}px) scale(${S})`;

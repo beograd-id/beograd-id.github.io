@@ -14,6 +14,7 @@ body{background:#141313}
 .slide.off{display:none}
 .shade{position:absolute;left:calc(-1*var(--fx,0px));right:calc(-1*var(--fx,0px));top:0;bottom:calc(-1*var(--fb,0px));background:#000;opacity:0;pointer-events:none;z-index:999}
 #stage{background:#fc3030}
+#stage .h-crop{position:absolute;left:0;top:0;width:1440px;height:873px;overflow:hidden}
 
 /* screen 3 — about the project */
 #project{background:#fff}
