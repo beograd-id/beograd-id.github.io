@@ -1,7 +1,7 @@
 // «Шрифт»: свободная композиция из знаков SRBPRO по эскизу Алисы
 // (её коллаж: знаки и группы знаков разного масштаба вокруг кольца). Цвета — палитра проекта:
 // графит — основной, голубой Нового Београда — второй, кольцо — красный Стари града. Подложек нет.
-// Любой знак (и кольцо) можно перетащить; «вернуть на место» собирает композицию заново.
+// Каждый знак (и кольцо) перетаскивается отдельно, даже внутри групп; «вернуть на место» собирает композицию заново.
 (()=>{
 const R=document.getElementById('font');if(!R)return;
 const pile=document.getElementById('fPile');
@@ -28,10 +28,16 @@ function build(){
   const [cx,cy,ro,ri]=RINGC,r=document.createElement('div');r.className='ring';
   const rw=ro*2*KS;r.style.cssText=`width:${rw}px;height:${rw}px;border:${(ro-ri)*KS}px solid ${RING}`;
   r._x=(cx-X0)*KX-rw/2;r._y=(cy-Y0)*KY-rw/2;r.style.transform=`translate(${r._x}px,${r._y}px)`;r._ox=r._x;r._oy=r._y;pile.appendChild(r);
-  C.forEach(([t,x,y,h,c])=>{const fs=h/CAP*KS,e=document.createElement('span');e.className='g';e.textContent=t;
-    e.style.fontSize=fs+'px';e.style.color=c||G;e.style.zIndex=++z;
-    e._x=(x-X0)*KX;e._y=(y-Y0)*KY-(ASC-CAP)*fs;e._ox=e._x;e._oy=e._y;e.style.transform=`translate(${e._x}px,${e._y}px)`;pile.appendChild(e)});
+  // группы вроде ABC или ЪЫЬЭЮЯ разбиваются на отдельные знаки: каждый тащится сам по себе,
+  // из них можно складывать свои слова. Место каждого знака — ширина строки до него (с кернингом).
+  C.forEach(([t,x,y,h,c])=>{const fs=h/CAP*KS;cv.font=`${fs}px SRBPRO`;
+    const x0=(x-X0)*KX,y0=(y-Y0)*KY-(ASC-CAP)*fs;
+    [...t].forEach((ch,i)=>{if(ch===' ')return;const e=document.createElement('span');e.className='g';e.textContent=ch;
+      e.style.fontSize=fs+'px';e.style.color=c||G;e.style.zIndex=++z;
+      e._x=x0+cv.measureText(t.slice(0,i)).width;e._y=y0;e._ox=e._x;e._oy=e._y;
+      e.style.transform=`translate(${e._x}px,${e._y}px)`;pile.appendChild(e)})});
 }
+const cv=document.createElement('canvas').getContext('2d');
 // перетаскивание: знаки поднимаются наверх, плашки остаются сзади
 let drag=null;
 pile.addEventListener('pointerdown',e=>{const g=e.target.closest('.g,.ring');if(!g||e.button)return;e.preventDefault();
@@ -52,5 +58,5 @@ function shake(){if(reduce)return;
 document.getElementById('fShuffle').addEventListener('click',()=>{let moved=false;
   pile.querySelectorAll('.g,.ring').forEach(e=>{if(e._x!==e._ox||e._y!==e._oy){moved=true;e._x=e._ox;e._y=e._oy;e.style.transform=`translate(${e._x}px,${e._y}px)`}});
   setTimeout(shake,moved?520:0)});
-build();
+document.fonts.load('40px SRBPRO').then(build);
 })();
