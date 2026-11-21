@@ -293,9 +293,9 @@ body{background:#141313}
 /* композиция из знаков шрифта (js/font.js), знаки и кольцо можно двигать */
 #font .f-pile{position:absolute;inset:0}
 #font .f-pile .ring{position:absolute;left:0;top:0;border-radius:50%;z-index:1;cursor:grab;touch-action:none;transition:transform .5s cubic-bezier(.2,.9,.2,1)}
-#font .f-pile .ring.drag{cursor:grabbing;transition:none}
+#font .f-pile .ring.drag{cursor:grabbing;transition:none;will-change:transform}
 #font .f-pile .g{position:absolute;left:0;top:0;font-family:'SRBPRO',sans-serif;line-height:1;white-space:pre;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;transition:transform .5s cubic-bezier(.2,.9,.2,1)}
-#font .f-pile .g.drag{cursor:grabbing;transition:none}
+#font .f-pile .g.drag{cursor:grabbing;transition:none;will-change:transform}
 #font .f-shuffle{position:absolute;right:0;top:-26px;border:0;background:none;font:italic 400 13px/1 'Inter',sans-serif;color:#3b342d;opacity:.5;cursor:pointer;z-index:2000}
 #font .f-shuffle:hover{opacity:1}
 /* ---- КАРТА ГОРОДА: слева что умеет карта, в центре живая карта в рамке телефона, справа QR и ссылки ---- */

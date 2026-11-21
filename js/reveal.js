@@ -17,7 +17,7 @@ const live=new Map();
 function play(slide){const plan=PLAN[slide.id];if(!plan)return;
   (live.get(slide)||[]).forEach(a=>a.cancel());const run=[];
   plan.forEach(([sel,how,delay,step])=>slide.querySelectorAll(sel).forEach((el,i)=>{
-    run.push(el.animate([{opacity:0,...FROM[how]},{}],{duration:how==='zoom'?800:650,delay:380+delay+i*step,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'}))}));
+    run.push(el.animate([{opacity:0,...FROM[how]},{}],{duration:how==='zoom'?800:650,delay:520+delay+i*step,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'}))}));
   live.set(slide,run)}
 addEventListener('deckenter',e=>play(e.detail.slide));
 })();

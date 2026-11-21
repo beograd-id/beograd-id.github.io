@@ -25,15 +25,15 @@ function render(){
     const d=p-i; // 0 = in place; >0 = covered by the next one; <0 = waiting below
     if(d<=-1||d>=1){s.style.visibility='hidden';return} // fully covered screens are not drawn at all
     s.style.visibility='visible';
-    if(d<0){ // incoming: a window opens from the bottom, content moves slower (parallax)
-      const t=ease(1+d),k=1-t;
-      s.style.transform=`translateY(${k*873*.35}px)`;
-      s.style.clipPath=`inset(${k*.65*(873+FY)}px ${-FX}px ${-FY}px round ${k*48}px ${k*48}px 0 0)`;
-      s._sh.style.opacity=0;edgeY=k*873;edgeT=t;
-    } else { // outgoing: tips back like a page and dims
+    if(d<0){ // incoming: the next screen pops up from below like a card — rounded corners, a touch smaller, then settles flat
+      const t=ease(1+d),k=1-t,r=k*40;
+      s.style.transform=`translateY(${k*(873+FY)*.92}px) scale(${.92+t*.08})`;
+      s.style.clipPath=`inset(0 ${-FX}px ${-FY}px round ${r}px)`;
+      s._sh.style.opacity=0;
+    } else { // outgoing: stays underneath as the previous card — shrinks a little, rounds its corners and dims
       const t=Math.min(1,d);
-      s.style.transform=t>0.0005?`perspective(1600px) translateY(${-t*70}px) rotateX(${t*7}deg) scale(${1-t*.07})`:'none';
-      s.style.clipPath=FULL();s._sh.style.opacity=t*.6;
+      s.style.transform=t>0.0005?`translateY(${-t*24}px) scale(${1-t*.06})`:'none';
+      s.style.clipPath=t>0.0005?`inset(0 ${-FX}px ${-FY}px round ${t*40}px)`:FULL();s._sh.style.opacity=t*.45;
       s.style.pointerEvents=t>0.5?'none':'';
     }
   });
@@ -48,7 +48,7 @@ let anim=null,busyUntil=0;
 function go(n,instant){
   n=Math.max(0,Math.min(slides.length-1,n));
   if(n===DECK.idx&&!anim&&Math.abs(DECK.p-n)<.001)return;
-  const from=DECK.p,dur=(instant||reduce)?0:Math.min(1100,650+Math.abs(n-from)*250);
+  const from=DECK.p,dur=(instant||reduce)?0:Math.min(1000,720+Math.abs(n-from)*140);
   const entering=n!==DECK.idx,prev=DECK.idx;DECK.idx=n;if(anim)cancelAnimationFrame(anim);
   if(entering)dispatchEvent(new CustomEvent('deckenter',{detail:{idx:n,slide:slides[n],from:prev}}));
   try{history.replaceState(null,'','#'+IDS[n])}catch(e){}
