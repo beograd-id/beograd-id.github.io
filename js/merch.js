@@ -28,13 +28,14 @@ const END=2762; // footer top: 100 below the last row
 const sc=slide.querySelector('.g-scroll'),pg=slide.querySelector('.g-page'),box=slide.querySelector('.g-merch');
 // the page starts with «Карта города» (one screen, 873 tall); «Носители» begin right under it
 const MAP_H=873,wantMerch=location.hash==='#merch';
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,MOB=window.MOB;
 const tiles=ITEMS.map(([f,cap,x,y,w,h,pos])=>{
   const el=document.createElement('figure');el.className='g-t';
-  Object.assign(el.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
+  if(MOB){el.style.order=10*(ITEMS.findIndex(it=>it[0]===f)+1);if(f==='picnic')el.classList.add('full');else if(w>=540)el.classList.add('wide')}
+  else Object.assign(el.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
   const im=new Image();im.src='merch/'+f+'.webp';im.alt=cap;im.decoding='async';im.loading='lazy';im.style.objectPosition=pos;
   el.append(im);box.appendChild(el);return el});
-const foot=document.createElement('footer');foot.className='g-foot';foot.style.top=END+'px';
+const foot=document.createElement('footer');foot.className='g-foot';if(!MOB)foot.style.top=END+'px';
 foot.innerHTML=`<div class="g-fcol g-fmain"><div class="g-fname">Визуальная идентичность Белграда</div><p>Некоммерческий авторский проект, 2026</p>
   <button type="button" class="g-top">в начало<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 11V1M1.5 5.5 6 1l4.5 4.5"/></svg></button></div>
 <div class="g-fcol"><b>КОНТАКТЫ</b><a href="mailto:alisanefed@gmail.com">alisanefed@gmail.com</a><p class="g-fstudio">Разработка айдентики и графический дизайн на заказ — <a href="https://alisanefed-bit.github.io/sloya-site/" target="_blank" rel="noopener">студия SLOYA</a></p></div>
@@ -43,6 +44,10 @@ foot.innerHTML=`<div class="g-fcol g-fmain"><div class="g-fname">Визуаль�
 <div class="g-fcopy">© 2026. Знаки общин, шрифт SRBPRO и тексты — авторская работа; использование — с указанием источника.</div>`;
 box.appendChild(foot);
 foot.querySelector('.g-top').addEventListener('click',()=>DECK.go(0));
+if(MOB){ // phone: ordinary page — no inner scroller, no rise-in; «Носители» count once they reach the middle of the window
+  window.__toMerch=()=>box.scrollIntoView({behavior:reduce?'auto':'smooth'});
+  let seen=false;addEventListener('scroll',()=>{if(!seen&&box.getBoundingClientRect().top<innerHeight*.5&&window.__stat){seen=true;window.__stat('merch')}},{passive:true});
+  return}
 pg.style.height=(MAP_H+END+foot.offsetHeight+60)+'px';
 // the deck scrolls this element natively and moves to the previous screen only from its very top
 slide._scroller=sc;

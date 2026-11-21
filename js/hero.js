@@ -12,6 +12,11 @@ const figs=F.map(([n,L,T,B,sz,r])=>{
   const a=Math.random()*Math.PI*2,sp=10+Math.random()*10;
   return {el,x:L+B/2,y:T+B/2,r:sz*.42,size:sz,rot:r,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,vr:(Math.random()-.5)*6,base:sp};
 });
+// phone: the figures stand still in the lower part of the screen (no physics loop), they only drop in once
+if(window.MOB){
+  figs.forEach(f=>{const s=f.size*.42;Object.assign(f.el.style,{width:s+'px',height:s+'px',left:(f.x/1440*100)+'%',top:(56+(f.y-260)/640*38)+'%',transform:`translate(-50%,-50%) rotate(${f.rot}deg)`})});
+  figs.forEach((f,i)=>f.el.animate([{opacity:0,translate:'0 40px',scale:.6},{opacity:1,translate:'0 0',scale:1}],{duration:reduce?1:800,delay:200+i*90,easing:'cubic-bezier(.34,1.5,.55,1)',fill:'backwards'}));
+}else{
 // soft no-go zones: title and the weather/nav strip
 const zones=[{x:415,y:250,w:610,h:265},{x:90,y:40,w:1260,h:200}];
 let mx=-9999,my=-9999;
@@ -51,6 +56,7 @@ function step(now){
 requestAnimationFrame(step);
 // intro: figures drop in
 figs.forEach((f,i)=>f.el.animate([{opacity:0,translate:'0 60px',scale:.6},{opacity:1,translate:'0 0',scale:1}],{duration:reduce?1:900,delay:200+i*110,easing:'cubic-bezier(.34,1.5,.55,1)',fill:'backwards'}));
+}
 
 // ---------- weather in Belgrade: Open-Meteo on the live site, the page's db inside the Claude artifact ----------
 const setW=w=>{if(!w)return;

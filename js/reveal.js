@@ -1,7 +1,7 @@
 // Reveal on arrival: when a screen is scrolled to, its text, pictures and cards fade in,
 // slide in from the side or from below, or zoom in. Replays every time the screen is opened.
 (()=>{
-if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+if(window.MOB||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 const FROM={up:{translate:'0 46px'},down:{translate:'0 -30px'},left:{translate:'-70px 0'},right:{translate:'70px 0'},zoom:{scale:'.8'},fade:{}};
 // screen id → [selector, how it arrives, start delay ms, step between siblings ms]
 const PLAN={

@@ -6,6 +6,40 @@ const slides=[...document.querySelectorAll('.slide:not(.off)')];
 const IDS=slides.map(s=>s.dataset.hash||s.id);
 slides.forEach((s,i)=>{s.style.zIndex=i+1;const sh=document.createElement('div');sh.className='shade';s.appendChild(sh);s._sh=sh});
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// ---- phone / portrait window: an ordinary scrolling page, no slide transitions ----
+// The same API (DECK.go, deckenter, deckchange) is kept so every screen script works unchanged:
+// a screen "is entered" when it reaches the upper part of the window.
+if(window.MOB){
+  const root=document.documentElement,hdr=document.getElementById('hdr'),tog=hdr.querySelector('.mtog');
+  const THEMES=slides.map(s=>s.dataset.theme||'light');
+  const DECK=window.DECK={idx:-1,p:0,indexOf:el=>slides.indexOf(el),go:null};
+  window.__deck={toStage:(x,y)=>[x,y],box:()=>[0,0,innerWidth,innerHeight]};
+  // unitless widths for CSS scaling (collage, type specimen): window and text column
+  const size=()=>{const w=root.clientWidth;root.style.setProperty('--vw',w);root.style.setProperty('--cw',w-2*Math.max(20,(w-680)/2))};
+  size();addEventListener('resize',()=>{if(!window.__isMob())location.reload();else size()});
+  const menu=open=>{hdr.classList.toggle('open',open);tog.setAttribute('aria-expanded',open);tog.textContent=open?'закрыть':'меню'};
+  tog.addEventListener('click',()=>menu(!hdr.classList.contains('open')));
+  const go=DECK.go=n=>{menu(false);n=Math.max(0,Math.min(slides.length-1,n));
+    if(n===0)scrollTo({top:0,behavior:reduce?'auto':'smooth'});else slides[n].scrollIntoView({behavior:reduce?'auto':'smooth'})};
+  document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.go)));
+  let ticking=false;
+  const check=()=>{ticking=false;
+    // header colour follows the screen under it; "entered" = the screen whose top passed 40% of the window
+    let top=0,at=0;slides.forEach((s,k)=>{const t=s.getBoundingClientRect().top;if(t<=56)top=k;if(t<=innerHeight*.4)at=k});
+    if(hdr.dataset.theme!==THEMES[top])hdr.dataset.theme=THEMES[top];
+    if(at!==DECK.idx){const prev=DECK.idx;DECK.idx=at;DECK.p=at;
+      hdr.querySelectorAll('[data-go]').forEach(b=>b.classList.toggle('cur',b.classList.contains('pill')&&+b.dataset.go===at&&at>0));
+      try{history.replaceState(null,'','#'+(slides[at].dataset.hash||slides[at].id))}catch(e){}
+      dispatchEvent(new CustomEvent('deckenter',{detail:{idx:at,slide:slides[at],from:prev}}))}
+    dispatchEvent(new Event('deckchange'))};
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(check)}},{passive:true});
+  addEventListener('hashchange',()=>{if(location.hash==='#merch'&&window.__toMerch)return window.__toMerch();const i=slides.findIndex(s=>(s.dataset.hash||s.id)===location.hash.slice(1));if(i>=0&&i!==DECK.idx)go(i)});
+  // start: jump to the screen named in the address once everything is laid out
+  addEventListener('DOMContentLoaded',()=>{const h=location.hash.slice(1),i=slides.findIndex(s=>(s.dataset.hash||s.id)===h);
+    if(h==='merch'&&window.__toMerch)document.querySelector('#merch .g-merch').scrollIntoView();else if(i>0)slides[i].scrollIntoView();
+    check()});
+  return;
+}
 let S=1,OX=0,OY=0,FX=0,FY=0;
 const DECK=window.DECK={idx:0,p:0,indexOf:el=>slides.indexOf(el),go:null};
 window.__deck={toStage:(cx,cy)=>[(cx-OX)/S,(cy-OY)/S],

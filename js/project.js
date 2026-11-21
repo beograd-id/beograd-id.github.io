@@ -8,6 +8,13 @@ const div=(cls,css,html)=>{const e=document.createElement('div');e.className=cls
 // small files for the tiles, full-size ones only for the hover preview
 const src=k=>k.startsWith('g:')?`gerb-s/${k.slice(2)}.webp`:k.startsWith('L:')?`logos/${k.split(':')[1]}.webp`:/^p\d/.test(k)?`ph-s/${k}.webp`:`art-s/${k}.webp`;
 const big=k=>k.startsWith('g:')?`gerb/${k.slice(2)}-card.webp`:k.startsWith('L:')?src(k):/^p\d/.test(k)?`ph/${k}.webp`:`art/${k}.webp`;
+if(window.MOB){const N=FACTS.length,fN=document.getElementById('fN'),fT=document.getElementById('fT'),fD=document.getElementById('fD'),box=document.getElementById('fact');
+  document.getElementById('fOf').textContent='/ '+String(N).padStart(2,'0');
+  const pics=document.createElement('div');pics.className='fimgs';box.insertBefore(pics,box.querySelector('.fnav'));
+  let c=0;const show=i=>{c=(i+N)%N;const f=FACTS[c];fN.textContent=String(c+1).padStart(2,'0');fT.textContent=f[0];fD.textContent=f[1];
+    pics.innerHTML=f[2].map(k=>`<img src="${big(k)}" alt="" loading="lazy" class="${/^[gL]:/.test(k)?'gb':''}">`).join('')};
+  document.getElementById('fPrev').addEventListener('click',()=>show(c-1));document.getElementById('fNext').addEventListener('click',()=>show(c+1));
+  show(0);return}
 // field inside the page margins
 const FX0=748,FX1=1340,FY0=100,FY1=842,CXc=(FX0+FX1)/2,CYc=(FY0+FY1)/2;
 let seed=7;const rr=()=>(seed=(seed*16807)%2147483647)/2147483647;

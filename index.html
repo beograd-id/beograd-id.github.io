@@ -9,12 +9,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;1,400&display=swap">
 <link rel="preload" href="fonts/SRBPRO.otf" as="font" type="font/otf" crossorigin>
+<script>/* phone or portrait window → ordinary scrolling page instead of the slide deck */
+window.__isMob=()=>matchMedia('(max-width: 760px), (orientation: portrait), (pointer: coarse) and (max-height: 500px)').matches;
+window.MOB=__isMob();if(MOB)document.documentElement.classList.add('mob');</script>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div id="vp"><div id="deck">
 <header id="hdr" data-theme="dark"><div class="logo" data-go="0"><img class="l0" src="hero/logo.png" alt=""><img class="l1" src="hero/logo-w.png" alt=""></div>
-  <nav class="pills"><div class="pill" data-go="1">о городе</div><div class="pill" data-go="2">о проекте</div><div class="pill" data-go="3">общины</div><div class="pill" data-go="4">шрифт</div><div class="pill" data-go="5">карта города</div><div class="pill sm">ru</div><div class="pill sm fs" id="fsBtn" title="На весь экран" role="button" aria-label="На весь экран"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 5V1h4M9 1h4v4M13 9v4H9M5 13H1V9"/></svg></div></nav></header>
+  <nav class="pills"><div class="pill" data-go="1">о городе</div><div class="pill" data-go="2">о проекте</div><div class="pill" data-go="3">общины</div><div class="pill" data-go="4">шрифт</div><div class="pill" data-go="5">карта города</div><div class="pill sm">ru</div><div class="pill sm fs" id="fsBtn" title="На весь экран" role="button" aria-label="На весь экран"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 5V1h4M9 1h4v4M13 9v4H9M5 13H1V9"/></svg></div></nav><button class="mtog" type="button" aria-expanded="false">меню</button></header>
 <div id="edge"></div>
 
 <section class="slide" id="hero" data-hash="home" data-theme="dark">
@@ -95,7 +98,7 @@
   <div class="g-scroll"><div class="g-page">
   <div id="citymap">
     <h2 class="m-title">Карта города</h2>
-    <p class="m-lead">Путеводитель по Белграду в цветах проекта. Это не приложение, а сайт-карта: открывается по ссылке в браузере телефона, ничего не нужно устанавливать. Попробуйте прямо здесь — карта справа живая.</p>
+    <p class="m-lead">Путеводитель по Белграду в цветах проекта. Это не приложение, а сайт-карта: открывается по ссылке в браузере телефона, ничего не нужно устанавливать. <span class="desk">Попробуйте прямо здесь — карта справа живая.</span></p>
     <div class="m-feats">
       <div><b>РАЙОНЫ</b><p>Десять общин в цветах своих знаков. Касание по району открывает карточку с его историей и местами.</p></div>
       <div><b>82 МЕСТА</b><p>Достопримечательности с фотографией и описанием: крепость, храмы, музеи, модернизм, парки и рынки.</p></div>

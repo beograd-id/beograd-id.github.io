@@ -364,3 +364,118 @@ body{background:#141313}
   font:400 var(--label)/1 'SRBPRO',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#3b342d}
   font:400 var(--body)/1 'Inter',sans-serif;color:#3b342d}
 #hdr .pill.fs{display:flex;align-items:center;padding:10px 13px}
+
+/* =====================================================================
+   ТЕЛЕФОН (и любое вертикальное окно): обычная прокручиваемая страница.
+   Класс .mob ставит скрипт в <head>; на компьютере ничего ниже не действует.
+   --vw / --cw — ширина окна и колонки текста без единиц (ставит deck.js).
+   ===================================================================== */
+#hdr .mtog{display:none}
+.mob{--h1:28px;--h2:22px;--px:max(20px,calc((100vw - 680px)/2))}
+html.mob,.mob body{height:auto;overflow:visible;overscroll-behavior:auto;background:#fff}
+.mob #vp{position:static;overflow:visible;touch-action:auto}
+.mob #deck{position:static;width:auto;height:auto;transform:none!important}
+.mob .slide{position:relative!important;width:auto;height:auto;transform:none!important;clip-path:none!important;visibility:visible!important;
+  will-change:auto;overflow:hidden;padding:96px var(--px) 64px;z-index:auto!important}
+.mob .slide::before,.mob .shade,.mob #edge{display:none}
+.mob .text p,.mob #project .p-body p{display:inline}
+.mob .text p.gap,.mob #project .p-body p.gap{display:block;height:14px}
+
+/* шапка: логотип и кнопка «меню», разделы выпадают списком */
+.mob #hdr{position:fixed;left:0;top:0!important;width:100%;height:56px;padding:0 var(--px);transition:background .3s;z-index:1000}
+.mob #hdr[data-theme=dark]{background:rgba(20,19,19,.78);color:#fff}
+.mob #hdr[data-theme=red]{background:rgba(252,48,48,.94);color:#fff}
+.mob #hdr[data-theme=light]{background:rgba(255,255,255,.94);color:#3b342d;box-shadow:0 1px 0 rgba(59,52,45,.1)}
+.mob #hdr .logo img{width:186px;height:auto}
+.mob #hdr .mtog{display:block;border:0;background:none;color:inherit;font:400 16px/1 'Inter',sans-serif;padding:12px 0 12px 16px;cursor:pointer}
+.mob #hdr .pills{display:none;position:absolute;left:0;right:0;top:56px;flex-direction:column;gap:0;padding:4px var(--px) 18px;background:inherit}
+.mob #hdr.open .pills{display:flex}
+.mob #hdr .pill,.mob #hdr .pill.cur{background:none!important;box-shadow:none!important;backdrop-filter:none;-webkit-backdrop-filter:none;color:inherit!important;
+  padding:12px 0;border-radius:0;font-size:20px;pointer-events:auto}
+.mob #hdr .pill.cur{text-decoration:underline;text-underline-offset:5px}
+.mob #hdr .pill.sm{display:none}
+
+/* заставка: на весь первый экран, фигуры стоят внизу */
+.mob #hero{height:100svh;min-height:560px;padding:0}
+.mob #hero .temp{left:var(--px);top:84px}
+.mob #hero .temp b{font-size:56px}
+.mob #hero .temp i{font-size:15px}
+.mob #hero .wx{left:calc(var(--px) + 96px);top:90px;width:auto;font-size:14px;gap:5px}
+.mob #hero .ttl{left:var(--px);right:var(--px);top:26%;width:auto;transform:none}
+.mob #hero .ttl h1{font-size:min(23vw,150px);letter-spacing:-.06em}
+.mob #hero .ttl p{font-size:16px;white-space:normal}
+.mob #hero .hint{bottom:20px}
+
+/* о городе: текст, под ним коллаж в своей рамке на всю ширину, ниже даты */
+.mob #stage .abs{position:relative;left:auto;top:auto;width:auto}
+.mob #stage .text{margin-top:20px}
+.mob .h-box{position:relative;margin:28px calc(-1*var(--px)) 0;height:calc(var(--vw)*873px/1060);overflow:hidden}
+.mob #stage .h-box .h-crop{transform-origin:0 0;transform:translateX(calc(var(--vw)*-380px/1060)) scale(calc(var(--vw)/1060))}
+.mob #strip{height:120px;margin-top:16px}
+.mob #num{font-size:64px}
+.mob #num .suf{font-size:22px}
+.mob #line,.mob #dot{top:82px}
+.mob #line{width:100%}
+.mob #cap{top:96px;font-size:15px}
+
+/* о проекте: текст и факты с картинками; сеть карточек — только на компьютере */
+.mob #project #sys,.mob #project .tile,.mob #ppeek,.mob #project .lb{display:none}
+.mob #project .p-text,.mob #fact,.mob #project .credit{position:relative;left:auto;top:auto;bottom:auto;width:auto}
+.mob #project .p-text{gap:20px}
+.mob #fact{margin-top:40px}
+.mob #fact .fnum{font-size:64px}
+.mob #fact .fimgs{display:flex;gap:8px;margin-top:18px}
+.mob #fact .fimgs img{flex:1;min-width:0;height:200px;object-fit:cover;background:#eee;display:block}
+.mob #fact .fimgs img.gb{object-fit:contain;background:#f3f2ef;padding:10px}
+.mob #project{display:flex;flex-direction:column}
+.mob #project .credit{margin-top:32px;order:9}
+
+/* общины: знак на бумаге, под ним полоса знаков, ниже текст */
+.mob #districts{display:flex;flex-direction:column}
+.mob #districts>*{position:relative!important;left:auto!important;top:auto!important;width:auto!important}
+.mob #districts .d-title{order:1}
+.mob #districts .d-lead{order:2;margin-top:16px}
+.mob #districts .stage{order:3;margin-top:24px;height:auto;aspect-ratio:620/512;touch-action:pan-y}
+.mob #districts .stage .big{width:62%;height:auto;aspect-ratio:1;margin:0;left:19%;top:50%;transform:translateY(-50%)}
+.mob #districts .strip{order:4;margin-top:16px;justify-content:space-between}
+.mob #districts .strip .t{width:28px;height:28px}
+.mob #districts .d-info{order:5;margin-top:28px}
+.mob #districts .d-num{font-size:64px}
+
+/* шрифт: композиция уменьшена до ширины колонки и не перетаскивается (не мешает прокрутке) */
+.mob #font .f-vis,.mob #font .f-under,.mob #font .f-text{position:relative;left:auto;top:auto;width:auto}
+.mob #font .f-vis{height:calc(var(--cw)*620px/660)}
+.mob #font .f-pile{inset:auto;left:0;top:0;width:660px;height:620px;transform-origin:0 0;transform:scale(calc(var(--cw)/660))}
+.mob #font .f-pile .g,.mob #font .f-pile .ring{pointer-events:none}
+.mob #font .f-shuffle{display:none}
+.mob #font .f-under{margin-top:16px;flex-wrap:wrap;gap:14px}
+.mob #font .f-text{margin-top:40px}
+.mob #font .f-head>div{flex-wrap:wrap;gap:8px}
+
+/* карта города: без рамки телефона и QR — сразу кнопка, карта открывается у себя */
+.mob #merch .g-scroll{position:static;padding:0;overflow:visible;-webkit-mask-image:none;mask-image:none}
+.mob #merch .g-page{width:auto;height:auto!important}
+.mob #citymap{position:static;width:auto;height:auto;display:flex;flex-direction:column;background:none}
+.mob #citymap>*{position:relative!important;left:auto!important;top:auto!important;width:auto!important}
+.mob #citymap .m-phone,.mob #citymap .m-qr,.mob #citymap .m-cap{display:none}
+.mob #citymap .m-lead{margin-top:16px}
+.mob #citymap .m-side{order:3;flex-direction:row;flex-wrap:wrap;gap:10px;margin-top:22px}
+.mob #citymap .m-feats{order:4;margin-top:36px;grid-template-columns:1fr;row-gap:18px}
+
+/* носители: тексты на всю ширину, фото сеткой в два столбца */
+.mob #merch .g-merch{position:static;width:auto;margin-top:72px;display:grid;grid-template-columns:1fr 1fr;gap:10px;grid-auto-flow:row dense}
+.mob #merch .g-merch>*{position:relative!important;left:auto!important;top:auto!important;width:auto!important;grid-column:1/-1}
+.mob #merch .g-title{order:0}
+.mob #merch .g-lead{order:1;margin:6px 0 14px}
+.mob #merch .g-feats{order:45;margin:14px 0}
+.mob #merch .g-about{order:95;margin:14px 0}
+.mob #merch .g-t{grid-column:auto;height:auto!important;aspect-ratio:4/5}
+.mob #merch .g-t.full{grid-column:1/-1}
+.mob #merch .g-t.wide{grid-column:1/-1;aspect-ratio:3/2}
+.mob #merch .g-foot{order:999;margin-top:48px;grid-template-columns:1fr;row-gap:24px}
+.mob .desk{display:none}
+.mob #merch .g-merch{scroll-margin-top:80px}
+.mob #hdr.open[data-theme=dark],.mob #hdr.open[data-theme=dark] .pills{background:#141313}
+.mob #hdr.open[data-theme=red],.mob #hdr.open[data-theme=red] .pills{background:#fc3030}
+.mob #hdr.open[data-theme=light],.mob #hdr.open[data-theme=light] .pills{background:#fff}
+.mob #hdr.open .pills{box-shadow:0 16px 30px rgba(0,0,0,.12)}
