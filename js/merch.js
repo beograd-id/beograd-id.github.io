@@ -4,7 +4,7 @@
 (()=>{
 const slide=document.getElementById('merch');if(!slide)return;
 // Y1 / Y2: tops of the photos under the right text and under «применение» — set to the text height + 28 so the columns close flush
-const Y1=476,Y2=902;
+const Y1=498,Y2=902;
 const ITEMS=[
   // block 1 (164–698): picnic cloth, the blue key (its own tall proportion), the lead text over the street sign
   ['picnic','Плед',100,164,400,534,'50% 50%'],
@@ -37,7 +37,7 @@ const tiles=ITEMS.map(([f,cap,x,y,w,h,pos])=>{
 const foot=document.createElement('footer');foot.className='g-foot';foot.style.top=END+'px';
 foot.innerHTML=`<div class="g-fcol g-fmain"><div class="g-fname">Визуальная идентичность Белграда</div><p>Некоммерческий авторский проект, 2026</p>
   <button type="button" class="g-top">в начало<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 11V1M1.5 5.5 6 1l4.5 4.5"/></svg></button></div>
-<div class="g-fcol"><b>КОНТАКТ</b><a href="https://t.me/alisks_design" target="_blank" rel="noopener">Telegram @alisks_design</a></div>
+<div class="g-fcol"><b>КОНТАКТ</b><a href="mailto:alisanefed@gmail.com">alisanefed@gmail.com</a><p class="g-fstudio">Разработка айдентики и графический дизайн на заказ — <a href="https://alisanefed-bit.github.io/sloya-site/" target="_blank" rel="noopener">студия SLOYA</a></p></div>
 <div class="g-fcol"><b>ИЗОБРАЖЕНИЯ</b><p>Гербы общин и фотографии города приводятся в исследовательских целях, права на них принадлежат владельцам. Носители — визуализации, созданные с помощью нейросети.</p></div>
 <div class="g-fcol"><b>ДАННЫЕ</b><p>Сайт не использует cookies и не собирает персональные данные. Посещения считаются анонимно через <a href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a>. Шрифт Inter загружается с Google Fonts, погода — с <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), карта — с OpenFreeMap (© участники <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>): эти сервисы видят технические данные запроса, например IP-адрес.</p></div>
 <div class="g-fcopy">© 2026. Знаки общин, шрифт SRBPRO и тексты — авторская работа; использование — с указанием источника.</div>`;
